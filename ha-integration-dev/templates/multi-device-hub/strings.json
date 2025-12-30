@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Hub",
+        "description": "Enter the IP address and API key for your hub.",
+        "data": {
+          "host": "Host",
+          "api_key": "API Key"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Hub",
+        "description": "Update the connection settings for your hub.",
+        "data": {
+          "host": "Host",
+          "api_key": "API Key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to hub",
+      "invalid_auth": "Invalid API key",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Hub is already configured",
+      "reconfigure_successful": "Reconfiguration successful"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "scan_interval": "Scan interval"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temperature": {
+        "name": "Temperature"
+      },
+      "humidity": {
+        "name": "Humidity"
+      },
+      "battery": {
+        "name": "Battery"
+      }
+    },
+    "binary_sensor": {
+      "motion": {
+        "name": "Motion"
+      },
+      "door": {
+        "name": "Door"
+      },
+      "online": {
+        "name": "Online"
+      }
+    },
+    "switch": {
+      "power": {
+        "name": "Power"
+      },
+      "night_light": {
+        "name": "Night Light"
+      }
+    }
+  }
+}

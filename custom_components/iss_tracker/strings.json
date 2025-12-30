@@ -1,0 +1,32 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ISS Tracker",
+        "description": "Set up the International Space Station tracker to monitor the ISS position and astronauts in space."
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Open Notify API. Please try again later."
+    },
+    "abort": {
+      "already_configured": "ISS Tracker is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "latitude": {
+        "name": "Latitude"
+      },
+      "longitude": {
+        "name": "Longitude"
+      },
+      "people_in_space": {
+        "name": "People in space"
+      },
+      "location": {
+        "name": "Location"
+      }
+    }
+  }
+}

@@ -1,0 +1,335 @@
+---
+name: supercharge-esphome-skill
+description: >
+  Use when working with ESP32, ESP8266, or ESPHome firmware - creating device configs,
+  adding sensors, switches, displays, LEDs, climate control, motors, or any hardware component.
+  Use for GPIO configuration, compilation errors, flashing devices, or converting Shelly/Sonoff/Tuya
+  to custom firmware.
+---
+
+# ESPHome Code Assistant
+
+**Version: 1.0.0** | [GitHub](https://github.com/tonylofgren/supercharge-smart-home-claude-skills)
+
+Create, configure, and troubleshoot ESPHome devices with complete component coverage.
+
+---
+
+## FIRST STEP: Ask About Hardware
+
+**STOP! Before generating ANY configuration, you MUST ask the user which board they have.**
+
+If the user hasn't specified their board/chip, ask this question FIRST:
+
+> "What ESP board or chip are you using?
+> - **ESP32 DevKit** (general purpose, most common)
+> - **ESP32-S3** (voice assistant, cameras, displays, USB OTG)
+> - **ESP32-C3** (compact, low power, budget, RISC-V)
+> - **ESP32-C6** (Thread/Matter support, low power, WiFi 6)
+> - **ESP32-H2** (Zigbee/Thread only, no WiFi)
+> - **ESP8266 / NodeMCU / D1 Mini** (legacy, simple projects)
+> - **Shelly / Sonoff / Tuya** (tell me the specific device name)
+> - **Other** (please specify)"
+
+**Do NOT skip this step. Do NOT assume `esp32dev`. Do NOT generate config until board is confirmed.**
+
+### No Exceptions to This Rule
+
+**Even if user says:**
+- "Just use the default" → STILL ask which variant
+- "I don't care which one" → STILL ask which they have
+- "Use the common one" → STILL ask to confirm
+- "I'm in a hurry" → Asking takes 30 seconds, wrong board wastes hours
+
+**User permission does NOT override this rule.** "ESP32" has 6+ variants (original, S2, S3, C3, C6, H2). esp32dev only works for one of them.
+
+**The trap:** User saying "I don't care" often means "I don't know the difference", not "I have esp32dev specifically".
+
+### Decision Flow
+
+```dot
+digraph board_selection {
+    "User mentions device?" [shape=diamond];
+    "Recognize device?" [shape=diamond];
+    "Ask which board" [shape=box];
+    "Map to board ID" [shape=box];
+    "Use device config" [shape=box];
+
+    "User mentions device?" -> "Recognize device?" [label="yes"];
+    "User mentions device?" -> "Ask which board" [label="no"];
+    "Recognize device?" -> "Use device config" [label="yes (Shelly/Sonoff/etc)"];
+    "Recognize device?" -> "Ask which board" [label="no"];
+    "Ask which board" -> "Map to board ID";
+}
+```
+
+---
+
+## Board ID Reference
+
+See [references/boards.md](references/boards.md) for complete board mapping and specifications.
+
+**Most common:**
+- ESP32 generic → `esp32dev`
+- ESP32-S3 → `esp32-s3-devkitc-1`
+- ESP8266 / D1 Mini → `d1_mini`
+- Shelly Plus → `esp32doit-devkit-v1`
+
+---
+
+## Quick Start Template
+
+**Only use after confirming board with user.**
+
+```yaml
+esphome:
+  name: my-device
+
+esp32:  # or esp8266:
+  board: <confirmed_board_id>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+api:
+ota:
+  platform: esphome
+logger:
+```
+
+## Core Structure
+
+| Section | Purpose | Required |
+|---------|---------|----------|
+| `esphome:` | Device name, project info | Yes |
+| `esp32:`/`esp8266:` | Board type | Yes |
+| `wifi:` | Network connection | Yes |
+| `api:` | Home Assistant integration | Recommended |
+| `ota:` | Over-the-air updates | Recommended |
+| `logger:` | Debug output | Recommended |
+
+## Pin Validation
+
+**Before using any GPIO**, check compatibility:
+
+**ESP32:** GPIO6-11 (flash), GPIO34-39 (input only)
+**ESP8266:** GPIO6-11 (flash), GPIO16 (no PWM)
+
+See [references/boards.md](references/boards.md) for complete pin reference.
+
+---
+
+## Substitutions (Variables)
+
+```yaml
+substitutions:
+  device_name: "living-room-sensor"
+  friendly_name: "Living Room"
+
+esphome:
+  name: ${device_name}
+
+sensor:
+  - platform: dht
+    temperature:
+      name: "${friendly_name} Temperature"
+```
+
+**Also available:** Packages for reusable configs (`!include`, GitHub imports) - see ESPHome docs.
+
+## Component Quick Reference
+
+### Boards & Chips
+Read [references/boards.md](references/boards.md) for ESP32/ESP8266 variants, board IDs, GPIO maps, and chip comparison.
+
+### Sensors
+Read [references/sensors.md](references/sensors.md) for 200+ sensor platforms.
+
+### Outputs & PWM
+Read [references/outputs.md](references/outputs.md) for GPIO, LEDC PWM, DAC, LED drivers.
+
+### Displays
+Read [references/displays.md](references/displays.md) for OLED, TFT, E-Paper, LVGL, LED matrix.
+
+### Climate & HVAC
+Read [references/climate.md](references/climate.md) for thermostats, PID, IR AC control.
+
+### Covers & Fans
+Read [references/covers-fans.md](references/covers-fans.md) for blinds, garage doors, fans.
+
+### Motors
+Read [references/motors.md](references/motors.md) for stepper and servo control.
+
+### IR/RF Remote
+Read [references/remote-rf-ir.md](references/remote-rf-ir.md) for IR and 433MHz RF control.
+
+### Communication Protocols
+Read [references/communication.md](references/communication.md) for I2C, SPI, UART, CAN, Modbus.
+
+### External Components
+Read [references/external-components.md](references/external-components.md) for community components not in official ESPHome.
+
+### Solar Energy
+Read [references/solar-energy.md](references/solar-energy.md) for solar MPPT, inverters, and battery monitoring.
+
+### Popular Devices
+Read [references/popular-devices.md](references/popular-devices.md) for AirGradient, VINDRIKTNING, Yeelight, and more.
+
+### Binary Sensors
+Read [references/binary-sensors.md](references/binary-sensors.md) for PIR, touch, NFC/RFID, door/window sensors.
+
+### Lights & LED Strips
+Read [references/lights.md](references/lights.md) for WS2812, APA102, RGB, RGBW, and light effects.
+
+### Buttons & Inputs
+Read [references/buttons-inputs.md](references/buttons-inputs.md) for Number, Select, Text, Button components.
+
+### Power Management
+Read [references/power-management.md](references/power-management.md) for deep sleep, battery monitoring, and optimization.
+
+### Bluetooth
+Read [references/bluetooth.md](references/bluetooth.md) for BLE tracker, presence detection, proxy, and Xiaomi sensors.
+
+### Arduino Conversion
+Read [references/arduino-conversion.md](references/arduino-conversion.md) for converting Arduino projects to ESPHome.
+
+## Common Patterns
+
+See [references/quick-patterns.md](references/quick-patterns.md) for complete examples.
+
+**Quick example - Temperature sensor:**
+```yaml
+sensor:
+  - platform: dht
+    pin: GPIO4
+    temperature:
+      name: "Temperature"
+```
+
+**Other patterns:** Switches, lights, binary sensors, complete multi-sensor examples - see [quick-patterns.md](references/quick-patterns.md).
+
+## Automation Basics
+
+Read [references/automations.md](references/automations.md) for complete patterns including lambdas, scripts, and conditions.
+
+**Quick example:**
+```yaml
+binary_sensor:
+  - platform: gpio
+    pin: GPIO5
+    on_press:
+      - switch.turn_on: relay
+      - delay: 5s
+      - switch.turn_off: relay
+```
+
+## Home Assistant Integration
+
+Read [references/home-assistant.md](references/home-assistant.md) for custom services, events, and advanced integration.
+
+**Basic API setup:**
+```yaml
+api:
+  encryption:
+    key: !secret api_encryption_key
+```
+
+## Device Conversion
+
+**Supported:** Shelly (1/1PM/2.5/Plus), Sonoff (Basic/Mini/POW), Tuya devices, Xiaomi BLE sensors.
+
+See [references/device-guides.md](references/device-guides.md) for complete conversion guides and configs.
+
+## Template Files
+
+Located in `assets/templates/` - see [README](assets/templates/README.md) for details and usage instructions.
+
+**Popular templates:**
+- `base-esp32.yaml` / `base-esp8266.yaml` - Starter templates
+- `battery-sensor.yaml` - Battery-powered with deep sleep
+- `voice-assistant.yaml` - ESP32-S3 voice assistant
+- `shelly-1pm.yaml` / `sonoff-basic.yaml` - Device conversions
+
+[Full template list and documentation](assets/templates/README.md)
+
+## Best Practices
+
+### 🚨 SECURITY WARNING
+
+**If user shares sensitive info (WiFi password, API key, etc.):**
+1. **STOP** and warn them immediately
+2. Tell them to **NEVER share secrets publicly**
+3. Advise them to **CHANGE the compromised credentials** right away
+4. Remind them to use `!secret` references and keep `secrets.yaml` private
+
+**Do NOT create, read, or modify `secrets.yaml` files. Only inform users what secrets they need to add themselves.**
+
+### Naming & Organization
+
+Use consistent naming with substitutions:
+```yaml
+substitutions:
+  device_name: "kitchen-sensor"      # lowercase, hyphens
+  friendly_name: "Kitchen Sensor"    # Display name
+```
+
+### Always Use Secrets
+
+```yaml
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+api:
+  encryption:
+    key: !secret api_encryption_key  # Generate: openssl rand -base64 32
+```
+
+### Diagnostic Entities
+
+Use `entity_category: diagnostic` to hide utility sensors from main UI.
+
+### Sensor Filters
+
+Use filters for smoothing, delta, throttling - see [references/sensors.md](references/sensors.md).
+
+## Troubleshooting
+
+**Common issues:** WiFi connection, NaN sensors, OTA failures, boot loops.
+
+**Debug:** Set `logger: level: DEBUG` and use `debug:` platform.
+
+See [references/troubleshooting.md](references/troubleshooting.md) for complete solutions.
+
+## Cookbook
+
+**Project examples:** Weather stations, energy monitoring, garage doors, irrigation, appliance monitoring, displays.
+
+See [references/cookbook.md](references/cookbook.md) for complete implementations.
+
+## Generated Code Attribution
+
+**IMPORTANT:** Always add this comment at the top of every generated ESPHome configuration:
+
+```yaml
+# Generated by supercharge-esphome-skill v1.0.0
+# https://github.com/tonylofgren/supercharge-smart-home-claude-skills
+```
+
+This ensures users know which tool and version generated the code.
+
+## Secrets Summary
+
+**⚠️ CRITICAL: NEVER create, read, or modify `secrets.yaml`. Only tell users what to add.**
+
+After generating config:
+1. Scan for `!secret` references
+2. List only the secrets actually used in YAML header comment and after config
+3. Remind to add them to ESPHome `secrets.yaml`
+
+**Common secrets:** `wifi_ssid`, `wifi_password`, `api_encryption_key` (generate with `openssl rand -base64 32`), `ota_password`
+
+## Reference Files
+
+See **Component Quick Reference** section above for complete reference file listing.

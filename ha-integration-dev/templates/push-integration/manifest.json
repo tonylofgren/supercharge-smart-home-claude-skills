@@ -1,0 +1,10 @@
+{
+  "domain": "my_integration",
+  "name": "My Integration",
+  "version": "1.0.0",
+  "codeowners": ["@username"],
+  "config_flow": true,
+  "documentation": "https://github.com/user/my_integration",
+  "iot_class": "local_push",
+  "requirements": ["aiohttp>=3.8.0"]
+}

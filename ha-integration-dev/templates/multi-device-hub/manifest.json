@@ -1,0 +1,12 @@
+{
+  "domain": "my_hub",
+  "name": "My Smart Hub",
+  "codeowners": ["@username"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/username/my_hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/username/my_hub/issues",
+  "requirements": ["my-hub-api==1.0.0"],
+  "version": "1.0.0"
+}

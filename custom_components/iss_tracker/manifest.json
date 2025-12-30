@@ -1,0 +1,12 @@
+{
+  "domain": "iss_tracker",
+  "name": "ISS Tracker",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/your-repo/iss_tracker",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/your-repo/iss_tracker/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

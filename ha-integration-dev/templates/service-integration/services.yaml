@@ -1,0 +1,67 @@
+# Services with response data (HA 2024+)
+
+get_data:
+  name: Get Data
+  description: Retrieve data from the service (returns data).
+  fields:
+    device_id:
+      name: Device ID
+      description: The device to get data from.
+      required: true
+      selector:
+        text:
+    data_type:
+      name: Data Type
+      description: Type of data to retrieve.
+      required: true
+      default: "status"
+      selector:
+        select:
+          options:
+            - "status"
+            - "history"
+            - "config"
+
+query_status:
+  name: Query Status
+  description: Query device status with optional response.
+  fields:
+    device_id:
+      name: Device ID
+      description: The device to query.
+      required: true
+      selector:
+        text:
+    query:
+      name: Query
+      description: Optional custom query.
+      required: false
+      selector:
+        text:
+
+execute_action:
+  name: Execute Action
+  description: Execute an action on the device (no response).
+  fields:
+    device_id:
+      name: Device ID
+      description: The device to act on.
+      required: true
+      selector:
+        text:
+    action:
+      name: Action
+      description: The action to execute.
+      required: true
+      selector:
+        select:
+          options:
+            - "restart"
+            - "refresh"
+            - "clear_cache"
+    parameters:
+      name: Parameters
+      description: Optional action parameters.
+      required: false
+      selector:
+        object:

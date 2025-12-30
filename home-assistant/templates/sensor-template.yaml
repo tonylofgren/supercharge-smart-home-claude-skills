@@ -1,0 +1,314 @@
+# Home Assistant Template Sensor Examples
+# Add to configuration.yaml under 'template:' key
+
+template:
+  # ==========================================
+  # SENSOR TEMPLATES
+  # ==========================================
+  - sensor:
+      # -------------------
+      # Basic Value Sensor
+      # -------------------
+      - name: "Average Temperature"
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        state: >
+          {% set sensors = [
+            states('sensor.living_room_temp'),
+            states('sensor.bedroom_temp'),
+            states('sensor.kitchen_temp')
+          ] %}
+          {% set valid = sensors | reject('in', ['unknown', 'unavailable']) | map('float') | list %}
+          {{ (valid | sum / valid | count) | round(1) if valid else 'unavailable' }}
+        availability: >
+          {{ states('sensor.living_room_temp') not in ['unknown', 'unavailable'] }}
+
+      # -------------------
+      # Calculated Sensor
+      # -------------------
+      - name: "Daily Energy Cost"
+        unit_of_measurement: "SEK"
+        state_class: total_increasing
+        state: >
+          {{ (states('sensor.daily_energy') | float(0) *
+              states('sensor.electricity_price') | float(0)) | round(2) }}
+
+      # -------------------
+      # Time-based Sensor
+      # -------------------
+      - name: "Time Since Last Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last = states.binary_sensor.motion.last_changed %}
+          {{ ((now() - last).total_seconds() / 60) | round(0) }}
+
+      # -------------------
+      # Counting Sensor
+      # -------------------
+      - name: "Open Doors Count"
+        state: >
+          {{ states.binary_sensor
+             | selectattr('attributes.device_class', 'eq', 'door')
+             | selectattr('state', 'eq', 'on')
+             | list | count }}
+
+      # -------------------
+      # Status Summary
+      # -------------------
+      - name: "Home Status"
+        state: >
+          {% if is_state('alarm_control_panel.home', 'armed_away') %}
+            Away
+          {% elif is_state('input_boolean.guest_mode', 'on') %}
+            Guest Mode
+          {% elif now().hour >= 22 or now().hour < 6 %}
+            Night
+          {% else %}
+            Home
+          {% endif %}
+        icon: >
+          {% if is_state('alarm_control_panel.home', 'armed_away') %}
+            mdi:home-export-outline
+          {% else %}
+            mdi:home
+          {% endif %}
+
+      # -------------------
+      # Formatted Uptime
+      # -------------------
+      - name: "HA Uptime Formatted"
+        state: >
+          {% set uptime = states('sensor.uptime') | float(0) %}
+          {% set days = (uptime // 1440) | int %}
+          {% set hours = ((uptime % 1440) // 60) | int %}
+          {% set minutes = (uptime % 60) | int %}
+          {{ days }}d {{ hours }}h {{ minutes }}m
+
+      # -------------------
+      # Next Event Sensor
+      # -------------------
+      - name: "Next Calendar Event"
+        state: >
+          {{ state_attr('calendar.family', 'message') | default('No events') }}
+        attributes:
+          start_time: >
+            {{ state_attr('calendar.family', 'start_time') }}
+          location: >
+            {{ state_attr('calendar.family', 'location') | default('') }}
+
+      # -------------------
+      # Attribute-based Sensor
+      # -------------------
+      - name: "Living Room Light Brightness"
+        unit_of_measurement: "%"
+        state: >
+          {% if is_state('light.living_room', 'on') %}
+            {{ state_attr('light.living_room', 'brightness') | int(0) / 255 * 100 | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+
+  # ==========================================
+  # BINARY SENSOR TEMPLATES
+  # ==========================================
+  - binary_sensor:
+      # -------------------
+      # Anyone Home
+      # -------------------
+      - name: "Anyone Home"
+        device_class: presence
+        state: >
+          {{ states.person | selectattr('state', 'eq', 'home') | list | count > 0 }}
+
+      # -------------------
+      # Workday Sensor
+      # -------------------
+      - name: "Is Workday"
+        state: >
+          {{ now().weekday() < 5 and
+             not is_state('binary_sensor.holiday', 'on') }}
+
+      # -------------------
+      # Daytime Sensor
+      # -------------------
+      - name: "Is Daytime"
+        state: >
+          {{ state_attr('sun.sun', 'elevation') > 0 }}
+
+      # -------------------
+      # House Secure
+      # -------------------
+      - name: "House Secure"
+        device_class: safety
+        state: >
+          {{ states.binary_sensor
+             | selectattr('attributes.device_class', 'in', ['door', 'window'])
+             | selectattr('state', 'eq', 'on')
+             | list | count == 0 }}
+
+      # -------------------
+      # High Energy Usage
+      # -------------------
+      - name: "High Energy Usage"
+        device_class: power
+        state: >
+          {{ states('sensor.total_power') | float(0) > 5000 }}
+        delay_on:
+          minutes: 5
+        delay_off:
+          minutes: 2
+
+      # -------------------
+      # Washer Running
+      # -------------------
+      - name: "Washer Running"
+        device_class: running
+        state: >
+          {{ states('sensor.washer_power') | float(0) > 10 }}
+        delay_off:
+          minutes: 3
+
+      # -------------------
+      # HVAC Running
+      # -------------------
+      - name: "HVAC Running"
+        device_class: running
+        state: >
+          {{ states('climate.living_room') in ['heating', 'cooling'] or
+             state_attr('climate.living_room', 'hvac_action') in ['heating', 'cooling'] }}
+
+  # ==========================================
+  # TRIGGER-BASED SENSOR
+  # ==========================================
+  - trigger:
+      - platform: time_pattern
+        hours: "/1"  # Every hour
+    sensor:
+      - name: "Hourly Energy"
+        unit_of_measurement: "kWh"
+        state: >
+          {{ states('sensor.energy_total') | float(0) -
+             this.attributes.get('previous', states('sensor.energy_total') | float(0)) }}
+        attributes:
+          previous: "{{ states('sensor.energy_total') }}"
+
+  # ==========================================
+  # BUTTON TEMPLATE
+  # ==========================================
+  - button:
+      - name: "Reset Energy Counter"
+        press:
+          - service: utility_meter.reset
+            target:
+              entity_id: utility_meter.daily_energy
+
+  # ==========================================
+  # NUMBER TEMPLATE
+  # ==========================================
+  - number:
+      - name: "Thermostat Offset"
+        min: -5
+        max: 5
+        step: 0.5
+        unit_of_measurement: "°C"
+        state: "{{ states('input_number.thermostat_offset') }}"
+        set_value:
+          - service: input_number.set_value
+            target:
+              entity_id: input_number.thermostat_offset
+            data:
+              value: "{{ value }}"
+
+# ==========================================
+# HELPER EXAMPLES (for input_* entities)
+# ==========================================
+# Add to configuration.yaml
+
+input_boolean:
+  vacation_mode:
+    name: "Vacation Mode"
+    icon: mdi:airplane
+
+  guest_mode:
+    name: "Guest Mode"
+    icon: mdi:account-group
+
+input_number:
+  motion_timeout:
+    name: "Motion Timeout"
+    min: 1
+    max: 30
+    step: 1
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  target_temperature:
+    name: "Target Temperature"
+    min: 15
+    max: 28
+    step: 0.5
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer
+
+input_select:
+  home_mode:
+    name: "Home Mode"
+    options:
+      - Home
+      - Away
+      - Night
+      - Guest
+    icon: mdi:home
+
+input_text:
+  notification_recipient:
+    name: "Notification Recipient"
+    max: 100
+    icon: mdi:account
+
+input_datetime:
+  wake_time:
+    name: "Wake Time"
+    has_date: false
+    has_time: true
+    icon: mdi:alarm
+
+  vacation_start:
+    name: "Vacation Start"
+    has_date: true
+    has_time: false
+    icon: mdi:calendar
+
+input_button:
+  reset_counters:
+    name: "Reset Counters"
+    icon: mdi:restart
+
+counter:
+  coffee_count:
+    name: "Coffee Count"
+    initial: 0
+    step: 1
+    icon: mdi:coffee
+
+timer:
+  laundry:
+    name: "Laundry Timer"
+    duration: "01:30:00"
+    icon: mdi:washing-machine
+
+schedule:
+  heating:
+    name: "Heating Schedule"
+    monday:
+      - from: "06:00:00"
+        to: "08:00:00"
+      - from: "17:00:00"
+        to: "22:00:00"
+    tuesday:
+      - from: "06:00:00"
+        to: "08:00:00"
+      - from: "17:00:00"
+        to: "22:00:00"
+    # ... repeat for other days

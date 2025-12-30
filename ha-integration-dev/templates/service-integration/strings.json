@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Service",
+        "description": "Enter your API key to connect to the service.",
+        "data": {
+          "api_key": "API Key"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid API key",
+      "cannot_connect": "Failed to connect to service",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Service is already configured"
+    }
+  },
+  "services": {
+    "get_data": {
+      "name": "Get Data",
+      "description": "Retrieve data from a device.",
+      "fields": {
+        "device_id": {
+          "name": "Device ID",
+          "description": "The device to get data from."
+        },
+        "data_type": {
+          "name": "Data Type",
+          "description": "Type of data to retrieve."
+        }
+      }
+    },
+    "query_status": {
+      "name": "Query Status",
+      "description": "Query device status with optional response.",
+      "fields": {
+        "device_id": {
+          "name": "Device ID",
+          "description": "The device to query."
+        },
+        "query": {
+          "name": "Query",
+          "description": "Optional custom query."
+        }
+      }
+    },
+    "execute_action": {
+      "name": "Execute Action",
+      "description": "Execute an action on the device.",
+      "fields": {
+        "device_id": {
+          "name": "Device ID",
+          "description": "The device to act on."
+        },
+        "action": {
+          "name": "Action",
+          "description": "The action to execute."
+        },
+        "parameters": {
+          "name": "Parameters",
+          "description": "Optional action parameters."
+        }
+      }
+    }
+  }
+}

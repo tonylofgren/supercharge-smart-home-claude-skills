@@ -1,0 +1,29 @@
+{
+  "name": "aurora-smart-home",
+  "version": "1.0.0",
+  "description": "Aurora Smart Home - Claude Skills for Home Assistant and ESPHome",
+  "owner": {
+    "name": "Tony Löfgren",
+    "email": "tony@lofgren.se"
+  },
+  "plugins": [
+    {
+      "name": "ha-yaml",
+      "description": "Create, configure, and troubleshoot Home Assistant automations, scripts, templates, and integrations. 48 reference files, 15 templates, 600+ example prompts.",
+      "source": "./home-assistant",
+      "skills": ["./"]
+    },
+    {
+      "name": "esphome",
+      "description": "Create ESPHome device configurations, custom components, and sensor integrations. Comprehensive reference for YAML configs, C++ components, and automation patterns.",
+      "source": "./esphome",
+      "skills": ["./"]
+    },
+    {
+      "name": "ha-integration",
+      "description": "Build custom_components in Python for Home Assistant. Use when writing Python code with ConfigEntry, DataUpdateCoordinator, async_setup_entry, or publishing to HACS. NOT for YAML automations.",
+      "source": "./ha-integration-dev",
+      "skills": ["./"]
+    }
+  ]
+}

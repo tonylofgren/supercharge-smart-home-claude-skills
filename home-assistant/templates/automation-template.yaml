@@ -1,0 +1,343 @@
+# Home Assistant Automation Template
+# Copy and customize this template for new automations
+
+# Basic metadata
+alias: "Automation Name"
+description: "Description of what this automation does"
+id: "unique_automation_id"  # Optional, auto-generated if omitted
+
+# Execution mode
+# - single: Only one instance runs at a time (default)
+# - restart: Cancel current and start new
+# - queued: Queue up to 'max' instances
+# - parallel: Run up to 'max' instances simultaneously
+mode: single
+# max: 10  # For queued/parallel modes
+
+# -------------------
+# TRIGGERS
+# -------------------
+trigger:
+  # State change trigger
+  - platform: state
+    entity_id: binary_sensor.motion_sensor
+    from: "off"
+    to: "on"
+    # for: "00:00:05"  # Optional duration
+    id: motion_detected  # Optional trigger ID for choose
+
+  # Time trigger
+  - platform: time
+    at: "07:00:00"
+    id: morning_time
+
+  # Sun trigger
+  - platform: sun
+    event: sunset
+    offset: "-00:30:00"  # 30 min before sunset
+
+  # Numeric state trigger
+  - platform: numeric_state
+    entity_id: sensor.temperature
+    above: 25
+    # below: 30
+    # for: "00:05:00"
+
+  # Template trigger
+  - platform: template
+    value_template: "{{ states('sensor.power') | float > 1000 }}"
+    for: "00:01:00"
+
+  # Event trigger
+  - platform: event
+    event_type: call_service
+    event_data:
+      domain: light
+      service: turn_on
+
+  # MQTT trigger
+  - platform: mqtt
+    topic: "home/sensor/motion"
+    payload: "detected"
+
+  # Device trigger (from UI)
+  - platform: device
+    device_id: "abc123"
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_1
+
+  # Calendar trigger
+  - platform: calendar
+    event: start
+    entity_id: calendar.family
+    offset: "-00:15:00"
+
+  # Zone trigger
+  - platform: zone
+    entity_id: person.john
+    zone: zone.home
+    event: enter  # or leave
+
+  # Webhook trigger
+  - platform: webhook
+    webhook_id: "my_webhook_id"
+    allowed_methods:
+      - POST
+
+# -------------------
+# CONDITIONS (Optional)
+# -------------------
+condition:
+  # State condition
+  - condition: state
+    entity_id: input_boolean.automation_enabled
+    state: "on"
+
+  # Time condition
+  - condition: time
+    after: "08:00:00"
+    before: "22:00:00"
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+
+  # Sun condition
+  - condition: sun
+    after: sunset
+    after_offset: "-01:00:00"
+
+  # Numeric state condition
+  - condition: numeric_state
+    entity_id: sensor.temperature
+    above: 18
+    below: 28
+
+  # Template condition
+  - condition: template
+    value_template: "{{ is_state('person.john', 'home') }}"
+
+  # Zone condition
+  - condition: zone
+    entity_id: person.john
+    zone: zone.home
+
+  # AND condition (all must be true)
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id: light.living_room
+        state: "on"
+      - condition: numeric_state
+        entity_id: sensor.illuminance
+        below: 100
+
+  # OR condition (any can be true)
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: person.john
+        state: "home"
+      - condition: state
+        entity_id: person.jane
+        state: "home"
+
+  # NOT condition
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.home
+        state: "armed_away"
+
+# -------------------
+# ACTIONS
+# -------------------
+action:
+  # Service call
+  - service: light.turn_on
+    target:
+      entity_id: light.living_room
+    data:
+      brightness_pct: 80
+      color_temp: 400
+
+  # Service with target areas/devices
+  - service: light.turn_on
+    target:
+      area_id: living_room
+      device_id:
+        - abc123
+        - def456
+
+  # Delay
+  - delay:
+      seconds: 5
+      # hours: 1
+      # minutes: 30
+      # milliseconds: 500
+
+  # Wait for trigger
+  - wait_for_trigger:
+      - platform: state
+        entity_id: binary_sensor.motion
+        to: "off"
+    timeout:
+      minutes: 5
+    continue_on_timeout: true
+
+  # Wait for template
+  - wait_template: "{{ is_state('light.living_room', 'off') }}"
+    timeout: "00:05:00"
+
+  # Choose (if/then/else)
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: motion_detected
+        sequence:
+          - service: light.turn_on
+            target:
+              entity_id: light.hallway
+      - conditions:
+          - condition: trigger
+            id: morning_time
+        sequence:
+          - service: scene.turn_on
+            target:
+              entity_id: scene.morning
+    default:
+      - service: notify.mobile_app
+        data:
+          message: "Default action"
+
+  # If/Then/Else (simpler syntax)
+  - if:
+      - condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+    then:
+      - service: light.turn_on
+        target:
+          entity_id: light.porch
+    else:
+      - service: light.turn_off
+        target:
+          entity_id: light.porch
+
+  # Repeat
+  - repeat:
+      count: 3
+      sequence:
+        - service: light.toggle
+          target:
+            entity_id: light.warning
+        - delay:
+            seconds: 1
+
+  # Repeat while condition
+  - repeat:
+      while:
+        - condition: state
+          entity_id: binary_sensor.door
+          state: "on"
+      sequence:
+        - service: notify.mobile_app
+          data:
+            message: "Door still open!"
+        - delay:
+            minutes: 5
+
+  # Repeat until condition
+  - repeat:
+      until:
+        - condition: state
+          entity_id: climate.living_room
+          attribute: current_temperature
+          state: "21"
+      sequence:
+        - delay:
+            minutes: 1
+
+  # Parallel execution
+  - parallel:
+      - service: light.turn_on
+        target:
+          entity_id: light.kitchen
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.speaker
+        data:
+          media_content_id: "http://example.com/sound.mp3"
+          media_content_type: "music"
+
+  # Variables
+  - variables:
+      brightness: "{{ states('input_number.brightness') | int }}"
+      is_night: "{{ now().hour >= 22 or now().hour < 7 }}"
+
+  # Stop execution
+  - stop: "Stopping because condition not met"
+    error: false  # Set true to mark as error
+
+  # Enable/disable automation
+  - service: automation.turn_off
+    target:
+      entity_id: automation.other_automation
+    data:
+      stop_actions: true
+
+  # Fire event
+  - event: custom_event
+    event_data:
+      message: "Something happened"
+      value: 123
+
+  # Run script
+  - service: script.my_script
+    data:
+      parameter1: "value"
+
+  # Activate scene
+  - service: scene.turn_on
+    target:
+      entity_id: scene.movie_night
+    data:
+      transition: 2
+
+  # Send notification
+  - service: notify.mobile_app_phone
+    data:
+      title: "Alert"
+      message: "Motion detected at {{ now().strftime('%H:%M') }}"
+      data:
+        actions:
+          - action: "DISMISS"
+            title: "Dismiss"
+          - action: "TURN_OFF"
+            title: "Turn off lights"
+
+  # TTS announcement
+  - service: tts.speak
+    target:
+      entity_id: tts.google_en
+    data:
+      media_player_entity_id: media_player.living_room
+      message: "Welcome home!"
+
+# -------------------
+# VARIABLES (Top-level)
+# -------------------
+variables:
+  # Define reusable variables
+  light_entity: light.living_room
+  default_brightness: 80
+
+# -------------------
+# TRACE (Debug)
+# -------------------
+# Enable extended trace for debugging
+trace:
+  stored_traces: 10

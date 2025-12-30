@@ -1,0 +1,301 @@
+# Home Assistant Blueprint Template
+# Copy and customize this template for new blueprints
+
+blueprint:
+  # Required metadata
+  name: "Blueprint Name"
+  description: >
+    Detailed description of what this blueprint does.
+    Include use cases and key features.
+
+    **Features:**
+    - Feature 1
+    - Feature 2
+
+  # Domain: automation or script
+  domain: automation
+
+  # Optional metadata
+  author: "Your Name"
+  source_url: "https://github.com/username/repo"
+  homeassistant:
+    min_version: "2024.1.0"
+
+  # ==========================================
+  # INPUT DEFINITIONS
+  # ==========================================
+  input:
+    # -------------------
+    # Entity Selectors
+    # -------------------
+    motion_sensor:
+      name: Motion Sensor
+      description: Select the motion sensor that triggers this automation
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+
+    target_light:
+      name: Target Light
+      description: The light(s) to control
+      selector:
+        target:
+          entity:
+            domain: light
+
+    # Optional entity (with empty default)
+    illuminance_sensor:
+      name: Light Sensor (Optional)
+      description: Optional illuminance sensor for light-level detection
+      default: []
+      selector:
+        entity:
+          domain: sensor
+          device_class: illuminance
+
+    # Multiple entities
+    additional_triggers:
+      name: Additional Motion Sensors
+      description: Optional extra motion sensors
+      default: []
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+          multiple: true
+
+    # -------------------
+    # Number Inputs
+    # -------------------
+    brightness:
+      name: Brightness
+      description: Light brightness when turned on
+      default: 100
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: "%"
+          mode: slider
+
+    timeout_minutes:
+      name: Timeout
+      description: Time before turning off (minutes)
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 60
+          step: 1
+          unit_of_measurement: "min"
+          mode: box
+
+    # -------------------
+    # Time Inputs
+    # -------------------
+    night_start:
+      name: Night Mode Start
+      description: When night mode begins
+      default: "22:00:00"
+      selector:
+        time:
+
+    night_end:
+      name: Night Mode End
+      description: When night mode ends
+      default: "07:00:00"
+      selector:
+        time:
+
+    # -------------------
+    # Duration Input
+    # -------------------
+    wait_duration:
+      name: Wait Duration
+      description: How long to wait before action
+      default:
+        minutes: 5
+      selector:
+        duration:
+          enable_day: false
+
+    # -------------------
+    # Boolean Inputs
+    # -------------------
+    enable_night_mode:
+      name: Enable Night Mode
+      description: Use different settings at night
+      default: true
+      selector:
+        boolean:
+
+    # -------------------
+    # Select (Dropdown)
+    # -------------------
+    operating_mode:
+      name: Operating Mode
+      description: How the automation should behave
+      default: "auto"
+      selector:
+        select:
+          options:
+            - label: "Automatic"
+              value: "auto"
+            - label: "Manual Override"
+              value: "manual"
+            - label: "Disabled"
+              value: "disabled"
+          mode: dropdown
+
+    # -------------------
+    # Text Input
+    # -------------------
+    notification_message:
+      name: Notification Message
+      description: Message to send when triggered
+      default: "Motion detected!"
+      selector:
+        text:
+          multiline: false
+
+    # -------------------
+    # Action Input
+    # -------------------
+    additional_actions:
+      name: Additional Actions
+      description: Actions to run after main sequence
+      default: []
+      selector:
+        action:
+
+    # -------------------
+    # Color Temperature
+    # -------------------
+    color_temp:
+      name: Color Temperature
+      description: Light color temperature
+      default: 4000
+      selector:
+        color_temp:
+          unit: kelvin
+          min: 2000
+          max: 6500
+
+# ==========================================
+# TRIGGER VARIABLES (for use in triggers)
+# ==========================================
+trigger_variables:
+  motion: !input motion_sensor
+  additional: !input additional_triggers
+
+# ==========================================
+# VARIABLES (for use in conditions/actions)
+# ==========================================
+variables:
+  # Input references
+  motion_sensor: !input motion_sensor
+  target_light: !input target_light
+  illuminance_sensor: !input illuminance_sensor
+  brightness: !input brightness
+  night_start: !input night_start
+  night_end: !input night_end
+  enable_night_mode: !input enable_night_mode
+
+  # Computed variables
+  has_illuminance: "{{ illuminance_sensor != [] }}"
+  is_night: >
+    {% set current = now().strftime('%H:%M:%S') %}
+    {% if night_start < night_end %}
+      {{ current >= night_start and current < night_end }}
+    {% else %}
+      {{ current >= night_start or current < night_end }}
+    {% endif %}
+  effective_brightness: >
+    {% if enable_night_mode and is_night %}
+      30
+    {% else %}
+      {{ brightness }}
+    {% endif %}
+
+# ==========================================
+# EXECUTION MODE
+# ==========================================
+mode: restart
+# Options: single, restart, queued, parallel
+# max: 10  # For queued/parallel
+
+# ==========================================
+# TRIGGERS
+# ==========================================
+trigger:
+  # Primary trigger
+  - platform: state
+    entity_id: !input motion_sensor
+    to: "on"
+    id: motion_on
+
+  # Timeout trigger
+  - platform: state
+    entity_id: !input motion_sensor
+    to: "off"
+    for: !input wait_duration
+    id: motion_off
+
+  # Additional triggers (if provided)
+  - platform: state
+    entity_id: !input additional_triggers
+    to: "on"
+    id: additional_motion
+
+# ==========================================
+# CONDITIONS (Optional)
+# ==========================================
+condition:
+  # Example: Only run if automation not disabled
+  - condition: template
+    value_template: "{{ !input operating_mode != 'disabled' }}"
+
+# ==========================================
+# ACTIONS
+# ==========================================
+action:
+  # Use choose for different trigger handling
+  - choose:
+      # Motion detected
+      - conditions:
+          - condition: trigger
+            id:
+              - motion_on
+              - additional_motion
+        sequence:
+          # Check illuminance if sensor provided
+          - if:
+              - condition: template
+                value_template: >
+                  {{ not has_illuminance or
+                     states(illuminance_sensor) | float(0) < 100 }}
+            then:
+              - service: light.turn_on
+                target: !input target_light
+                data:
+                  brightness_pct: "{{ effective_brightness }}"
+                  transition: 1
+
+      # Motion cleared after timeout
+      - conditions:
+          - condition: trigger
+            id: motion_off
+        sequence:
+          - service: light.turn_off
+            target: !input target_light
+            data:
+              transition: 5
+
+  # Run additional actions if provided
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ true }}"
+        sequence: !input additional_actions

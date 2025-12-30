@@ -20,9 +20,9 @@ Reference skill for Home Assistant configuration and automation.
 # https://github.com/tonylofgren/aurora-smart-home
 ```
 
-## FIRST STEP: Clarify Intent
+## FIRST STEP: Clarify Intent (MANDATORY)
 
-Ask user before generating configuration:
+**STOP! You MUST ask these questions before generating ANY configuration:**
 
 1. **Automation or Blueprint?**
    - Automation: Specific to their setup, uses their entity names
@@ -32,11 +32,13 @@ Ask user before generating configuration:
    - UI Editor (Settings > Automations)
    - YAML files (automations.yaml, packages/)
 
-3. **Output method?**
+3. **Output method?** ⚠️ ALWAYS ASK
    - **Save to project** - Write file to their project folder (automations.yaml, packages/, etc.)
    - **Copy from chat** - Display code for user to copy manually
 
 4. **HA Version?** (for deprecated syntax awareness)
+
+**Do NOT skip these questions. Do NOT assume defaults.**
 
 ## Quick Reference
 

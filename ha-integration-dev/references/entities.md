@@ -1159,6 +1159,58 @@ class MySensor(CoordinatorEntity, SensorEntity):
         }
 ```
 
+### IMPORTANT: Attribute Serialization
+
+Values in `extra_state_attributes` **MUST** be JSON-serializable. Home Assistant serializes
+these values for storage, the frontend, and REST API responses.
+
+| Type | Serializable? | Solution |
+|------|---------------|----------|
+| `str`, `int`, `float`, `bool`, `None` | ✅ Yes | Use directly |
+| `list`, `dict` (of primitives) | ✅ Yes | Use directly |
+| `datetime` | ❌ No | Use `.isoformat()` |
+| `dataclass` | ❌ No | Use `asdict()` or extract fields |
+| Custom objects | ❌ No | Convert to dict/primitives |
+
+**Example with proper serialization:**
+
+```python
+from dataclasses import asdict
+from homeassistant.util import dt as dt_util
+
+@property
+def extra_state_attributes(self) -> dict[str, Any]:
+    """Return serializable attributes."""
+    return {
+        # ✅ datetime → ISO string
+        "last_updated": dt_util.now().isoformat(),
+
+        # ✅ int - primitive
+        "event_count": len(self._events),
+
+        # ✅ dataclass → dict (use asdict or manual conversion)
+        "latest_event": asdict(self._events[0]) if self._events else None,
+
+        # ✅ list of dicts with primitives only
+        "recent_events": [
+            {"id": e.id, "name": e.name, "time": e.timestamp.isoformat()}
+            for e in self._events[:5]
+        ],
+
+        # ❌ WRONG: complex objects will cause serialization errors
+        # "events": self._events,  # Don't do this!
+    }
+```
+
+**Common anti-pattern:**
+```python
+# ❌ This will fail - dataclass list not serializable
+"events_by_type": dict(data.events_by_type)  # Contains dataclass objects
+
+# ✅ Correct - convert to counts or extract serializable fields
+"events_by_type": {k: len(v) for k, v in data.events_by_type.items()}
+```
+
 ---
 
 ## Availability

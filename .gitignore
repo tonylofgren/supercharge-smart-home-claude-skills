@@ -16,4 +16,39 @@ Desktop.ini
 # Temp files
 *.tmp
 *.bak
+
+# Claude Code local settings
 .claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment/secrets
+.env
+.env.*
+*.local.env
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Home Assistant
+*.db
+*.db-journal
+home-assistant.log

@@ -281,6 +281,7 @@ _LOGGER.debug("API key configured: %s", bool(api_key))
 
 ```python
 from datetime import datetime, timedelta
+from homeassistant.util import dt as dt_util
 
 class MyApiClient:
     """API client with automatic token refresh."""
@@ -294,7 +295,8 @@ class MyApiClient:
 
     async def _ensure_valid_token(self) -> None:
         """Refresh token if expired."""
-        if self._token_expires and datetime.now() >= self._token_expires:
+        # NOTE: Always use dt_util.now() for timezone-aware timestamps
+        if self._token_expires and dt_util.now() >= self._token_expires:
             await self._refresh_access_token()
 
     async def _refresh_access_token(self) -> None:
@@ -313,7 +315,7 @@ class MyApiClient:
             self._token = data["access_token"]
             # Refresh slightly before expiration
             expires_in = data.get("expires_in", 3600)
-            self._token_expires = datetime.now() + timedelta(
+            self._token_expires = dt_util.now() + timedelta(
                 seconds=expires_in - 60
             )
 

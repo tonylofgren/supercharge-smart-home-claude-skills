@@ -321,6 +321,7 @@ async def request_with_backoff(
 
 ```python
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.util import dt as dt_util
 
 class MyCoordinator(DataUpdateCoordinator):
     """Coordinator with rate limit handling."""
@@ -339,14 +340,15 @@ class MyCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self) -> dict:
         """Fetch data with rate limit awareness."""
         # Check if we're still rate limited
-        if self._rate_limit_until and datetime.now() < self._rate_limit_until:
-            remaining = (self._rate_limit_until - datetime.now()).seconds
+        # NOTE: Always use dt_util.now() for timezone-aware timestamps in Home Assistant
+        if self._rate_limit_until and dt_util.now() < self._rate_limit_until:
+            remaining = int((self._rate_limit_until - dt_util.now()).total_seconds())
             raise UpdateFailed(f"Rate limited, {remaining}s remaining")
 
         try:
             return await self.client.async_get_data()
         except RateLimitError as err:
-            self._rate_limit_until = datetime.now() + timedelta(seconds=err.retry_after)
+            self._rate_limit_until = dt_util.now() + timedelta(seconds=err.retry_after)
             raise UpdateFailed(f"Rate limited for {err.retry_after}s") from err
 ```
 

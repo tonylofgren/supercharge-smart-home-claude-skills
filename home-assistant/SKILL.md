@@ -149,6 +149,7 @@ These thoughts mean STOP - you're rationalizing:
 | Advanced patterns | `references/advanced-patterns.md` |
 | Best practices | `references/best-practices.md` |
 | Troubleshooting | `references/troubleshooting.md` |
+| Debug Flowcharts | `references/troubleshooting-flowcharts.md` |
 | Energy/EV | `references/energy-ev-charging.md` |
 
 ## Templates
@@ -158,6 +159,15 @@ These thoughts mean STOP - you're rationalizing:
 | `templates/automation-template.yaml` | Complete automation with all trigger/condition/action types |
 | `templates/blueprint-template.yaml` | Blueprint starter with common input patterns |
 | `templates/sensor-template.yaml` | Template sensors, binary sensors, helpers |
+
+### Dashboard Templates
+
+| Template | Purpose |
+|----------|---------|
+| `assets/templates/dashboards/climate-dashboard.yaml` | Temperature, humidity, HVAC overview |
+| `assets/templates/dashboards/energy-dashboard.yaml` | Power monitoring, consumption tracking |
+| `assets/templates/dashboards/security-dashboard.yaml` | Doors, windows, cameras, alarm |
+| `assets/templates/dashboards/mushroom-room-card.yaml` | Modern room cards with Mushroom |
 
 ## Examples
 

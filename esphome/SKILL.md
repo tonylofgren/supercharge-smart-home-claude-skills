@@ -128,6 +128,15 @@ These thoughts mean STOP - you're rationalizing:
 | Arduino Conversion | `references/arduino-conversion.md` |
 | External Components | `references/external-components.md` |
 
+### Calibration & Debugging
+
+| Topic | Reference File |
+|-------|---------------|
+| Sensor Calibration | `references/calibration.md` |
+| Board Pinouts | `references/pinouts.md` |
+| Debug Flowcharts | `references/troubleshooting-flowcharts.md` |
+| Security Hardening | `references/security-hardening.md` |
+
 ### Projects & Troubleshooting
 
 | Topic | Reference File |

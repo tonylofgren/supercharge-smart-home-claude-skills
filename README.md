@@ -67,6 +67,38 @@ The most comprehensive Claude Code skill pack for smart home development.
 
 ---
 
+## How Skills Activate
+
+Skills activate in two ways:
+
+### 1. Automatic (Contextual)
+
+Just mention keywords naturally - skills load automatically:
+
+| Skill | Triggers on |
+|-------|-------------|
+| `node-red` | "node-red" anywhere (even "node-redflöde", "Node-RED-flow") |
+| `esphome` | "ESPHome", "ESP32", "ESP8266", device firmware |
+| `ha-yaml` | "YAML automation", "blueprint", "automations.yaml" |
+| `ha-integration` | "custom integration", "HACS", "custom_components" |
+
+> **Language-independent:** Product names like "Node-RED" and "ESPHome" work in any language.
+
+### 2. Explicit (Slash Commands)
+
+Use slash commands when contextual activation misses:
+
+```
+/aurora:node-red       - Node-RED flows
+/aurora:esphome        - ESPHome configs
+/aurora:ha-yaml        - Home Assistant YAML
+/aurora:ha-integration - Python custom integrations
+```
+
+> **Tip:** Type `/aurora:` to see all available commands.
+
+---
+
 ## Getting Started with Your First Project
 
 After installation, be explicit about which platform you want. Examples:

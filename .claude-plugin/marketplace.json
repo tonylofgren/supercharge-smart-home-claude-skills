@@ -10,25 +10,29 @@
       "name": "ha-yaml",
       "description": "Create, configure, and troubleshoot Home Assistant automations, scripts, templates, and integrations. 48 reference files, 15 templates, 600+ example prompts.",
       "source": "./home-assistant",
-      "skills": ["./"]
+      "skills": ["./"],
+      "commands": ["./commands"]
     },
     {
       "name": "esphome",
       "description": "Create ESPHome device configurations, custom components, and sensor integrations. Comprehensive reference for YAML configs, C++ components, and automation patterns.",
       "source": "./esphome",
-      "skills": ["./"]
+      "skills": ["./"],
+      "commands": ["./commands"]
     },
     {
       "name": "ha-integration",
       "description": "Build custom_components in Python for Home Assistant. Use when writing Python code with ConfigEntry, DataUpdateCoordinator, async_setup_entry, or publishing to HACS. NOT for YAML automations.",
       "source": "./ha-integration-dev",
-      "skills": ["./"]
+      "skills": ["./"],
+      "commands": ["./commands"]
     },
     {
       "name": "node-red",
       "description": "Build visual Node-RED flows for Home Assistant. Triggers when 'node-red' appears anywhere in request (any language, including compound words). 12 reference guides, 100+ prompts, 15 templates. NOT for YAML automations or ESPHome.",
       "source": "./node-red",
-      "skills": ["./"]
+      "skills": ["./"],
+      "commands": ["./commands"]
     }
   ]
 }

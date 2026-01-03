@@ -132,6 +132,98 @@ Use single trigger node with `extend: true`:
 3. **Use placeholder entity IDs** - Document what to change
 4. **Add comment node** - Explain required configuration
 
+## Function Node: External Libraries
+
+**WRONG:** Using `global.get('axios')` or similar for HTTP requests.
+
+This requires manual configuration in `settings.js`:
+```javascript
+// settings.js - requires Node-RED restart
+functionGlobalContext: {
+    axios: require('axios')
+}
+```
+
+**CORRECT:** Use the built-in `http request` node instead:
+
+```json
+{
+  "type": "http request",
+  "method": "GET",
+  "url": "https://api.example.com/data",
+  "ret": "obj"
+}
+```
+
+**When you MUST use function node for HTTP:**
+- Complex request logic that can't be handled by http request node
+- Requires settings.js configuration (warn user!)
+- Use `node.send()` and `node.done()` for async:
+
+```javascript
+// Async pattern in function node
+const axios = global.get('axios'); // Requires settings.js config!
+
+async function fetchData() {
+    try {
+        const response = await axios.get(msg.url);
+        msg.payload = response.data;
+        node.send(msg);
+    } catch (error) {
+        node.error(error.message, msg);
+    }
+    node.done();
+}
+
+fetchData();
+return null; // Prevent sync output
+```
+
+## Context Storage
+
+Three scopes available:
+
+| Scope | Syntax | Shared With |
+|-------|--------|-------------|
+| Node | `context.get/set()` | Only this node |
+| Flow | `flow.get/set()` | All nodes in tab |
+| Global | `global.get/set()` | All flows |
+
+```javascript
+// Store state
+flow.set('machineState', 'washing');
+flow.set('history', historyArray);
+
+// Retrieve
+const state = flow.get('machineState') || 'idle';
+```
+
+**For persistence across restarts**, configure in settings.js:
+```javascript
+contextStorage: {
+    default: { module: "localfilesystem" }
+}
+```
+
+## Error Handling Pattern
+
+Use `catch` node scoped to specific nodes:
+
+```json
+{
+  "type": "catch",
+  "scope": ["call_service_node_id"],
+  "uncaught": false
+}
+```
+
+Error info available in `msg.error`:
+- `msg.error.message` - Error text
+- `msg.error.source.id` - Node that threw error
+- `msg.error.source.type` - Node type
+
+**Retry pattern:** Use `delay` node with `delayv` type to read delay from `msg.delay`.
+
 ## Common Mistakes Table
 
 | Mistake | Reality |
@@ -142,6 +234,8 @@ Use single trigger node with `extend: true`:
 | Using `ha-entity` without warning | Requires separate hass-node-red integration |
 | Complex timer reset logic | Use `extend: true` on trigger node |
 | `dataType: "jsonata"` for service data | Use `msg` when passing dynamic payload |
+| `global.get('axios')` for HTTP | Use http request node, or warn about settings.js |
+| `return msg` in async function | Use `node.send(msg)` + `node.done()` + `return null` |
 
 ## Pre-Output Checklist
 

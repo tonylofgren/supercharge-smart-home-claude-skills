@@ -1,11 +1,25 @@
 ---
 name: node-red
-description: Use when building Node-RED flows for Home Assistant automation. Triggers on "Node-RED", "flow", "visual automation", or node-red-contrib-home-assistant-websocket nodes.
+description: >
+  Use when user EXPLICITLY requests "Node-RED", "flow", or "visual automation".
+  NOT for: YAML automations (use home-assistant skill), device firmware (use esphome skill).
 ---
 
 # Node-RED for Home Assistant
 
 Build Node-RED flows using node-red-contrib-home-assistant-websocket nodes.
+
+## First Step: Clarify Platform
+
+**If the user's request does NOT explicitly mention "Node-RED" or "flow", ASK:**
+
+> "Do you want this as:
+> 1. **Node-RED flow** (visual, drag-drop, importable JSON)
+> 2. **Home Assistant YAML** (automations.yaml, scripts.yaml)
+> 3. **ESPHome config** (device firmware for ESP32/ESP8266)"
+
+**NEVER assume Node-RED.** A request like "make a motion light" could be any of these.
+Only proceed with this skill if user confirms Node-RED.
 
 ## Critical: Node Names Have Changed
 

@@ -1,9 +1,12 @@
-# Home Assistant Integration Development Skill
+# Home Assistant Python Integration Development Skill
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/tonylofgren/aurora-smart-home/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Complete reference for developing Home Assistant custom integrations in Python. From config flows to entity platforms, coordinators to services.
+Complete reference for developing **Home Assistant custom integrations in Python**. From config flows to entity platforms, coordinators to services.
+
+> **When to use this skill:** Use when you want to develop a Python custom component (custom_components, HACS).
+> For YAML automations, use `home-assistant`. For visual flows, use `node-red`. For device firmware, use `esphome`.
 
 ---
 
@@ -23,7 +26,7 @@ Complete reference for developing Home Assistant custom integrations in Python. 
 
 4. **Start developing**
    ```
-   You: Create a custom integration for my smart thermostat API
+   You: Create a Python custom integration for my smart thermostat cloud API
    ```
 
 ---

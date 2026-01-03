@@ -1,11 +1,14 @@
 ![Supercharge ESPHome with Claude Code Skills](images/supercharge2.png)
 
-# ESPHome Code Assistant Skill
+# ESPHome Device Configuration Skill
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/tonylofgren/aurora-smart-home/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Complete ESPHome code assistant for Claude Code. Create, configure, and troubleshoot ESPHome devices with expert guidance. Includes Arduino to ESPHome conversion.
+Complete **ESPHome device firmware** assistant for Claude Code. Create, configure, and troubleshoot ESP32/ESP8266 devices with expert guidance. Includes Arduino to ESPHome conversion.
+
+> **When to use this skill:** Use when you want device firmware for ESP32/ESP8266 (runs on the chip).
+> For Home Assistant automations, use `home-assistant` or `node-red`. For Python custom components, use `ha-integration`.
 
 ---
 

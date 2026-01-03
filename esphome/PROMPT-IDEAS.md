@@ -1,6 +1,8 @@
-# ESPHome Prompt Ideas
+# ESPHome Device Configuration - Prompt Ideas
 
-600+ creative prompts to inspire your ESPHome projects. Copy, modify, and combine!
+> 600+ creative prompts for **ESPHome device firmware** (ESP32, ESP8266, sensors, outputs)
+
+**All prompts are for ESPHome device configuration** to distinguish from Home Assistant YAML automations or Node-RED flows. These create firmware that runs on the device itself.
 
 ---
 
@@ -26,23 +28,23 @@
 ### Kitchen
 
 ```
-Create a kitchen temperature and humidity sensor that alerts if humidity exceeds 80%
+Create ESPHome config for a kitchen temperature and humidity sensor that alerts if humidity exceeds 80%
 ```
 
 ```
-Build a range hood controller that auto-activates when cooking is detected via temperature rise
+Build ESPHome device for a range hood controller that auto-activates when cooking is detected via temperature rise
 ```
 
 ```
-Make a refrigerator door sensor that alerts after 2 minutes open
+Create ESPHome config for a refrigerator door sensor that alerts after 2 minutes open
 ```
 
 ```
-Create a freezer temperature monitor that sends critical alert if above -15°C
+Build ESPHome device for a freezer temperature monitor that sends critical alert if above -15°C
 ```
 
 ```
-Build a kitchen timer with rotary encoder and OLED display showing countdown
+Create ESPHome config for a kitchen timer with rotary encoder and OLED display showing countdown
 ```
 
 ```
@@ -2729,11 +2731,20 @@ Create a complete workshop system: tools, dust collection, lighting, climate
 
 ## 💬 Tips for Better Prompts
 
-### Be Specific About Hardware
+### Always Specify ESPHome
 
 ```
 ❌ "Create a temperature sensor"
-✅ "Create an ESP32 with BME280 on I2C showing temperature, humidity, and pressure"
+✅ "Create ESPHome config for an ESP32 with BME280 on I2C showing temperature, humidity, and pressure"
+```
+
+This distinguishes from Home Assistant YAML automations or Node-RED flows.
+
+### Be Specific About Hardware
+
+```
+❌ "Create ESPHome config for a sensor"
+✅ "Create ESPHome config for ESP32 with BME280 on I2C showing temperature, humidity, and pressure"
 ```
 
 ### Mention Your Use Case

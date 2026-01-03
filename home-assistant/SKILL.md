@@ -1,15 +1,26 @@
 ---
 name: home-assistant-automation
 description: >
-  Use when user asks about Home Assistant, smart home automation, YAML configuration,
-  automations, scripts, blueprints, templates, scenes, or integrations. Symptoms:
-  "automation", "blueprint", "trigger", "action", "sensor", "entity_id", ".yaml",
-  "Home Assistant", "HA", "MQTT", "ESPHome", "Zigbee", "Z-Wave", "Shelly", "Tuya".
+  Use when user EXPLICITLY requests "YAML automation", "automations.yaml", "blueprint",
+  "Home Assistant automation", or "HA config". NOT for: Node-RED flows (use node-red skill),
+  device firmware (use esphome skill).
 ---
 
 # Home Assistant Automation
 
 Reference skill for Home Assistant configuration and automation.
+
+## First Step: Clarify Platform
+
+**If the user's request does NOT explicitly mention "YAML", "Home Assistant automation", or "HA config", ASK:**
+
+> "Do you want this as:
+> 1. **Home Assistant YAML** (automations.yaml, scripts.yaml, blueprints)
+> 2. **Node-RED flow** (visual, drag-drop, importable JSON)
+> 3. **ESPHome config** (device firmware for ESP32/ESP8266)"
+
+**NEVER assume YAML.** A request like "make a motion light" could be any of these.
+Only proceed with this skill if user confirms Home Assistant YAML.
 
 ## Overview
 

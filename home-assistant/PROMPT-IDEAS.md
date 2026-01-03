@@ -1,6 +1,8 @@
-# Home Assistant Code Assistant - Prompt Ideas
+# Home Assistant YAML Automation - Prompt Ideas
 
-> 600+ categorized prompts to get the most out of Claude for Home Assistant
+> 600+ categorized prompts for **Home Assistant YAML automations** (automations.yaml, blueprints, scripts)
+
+**All prompts explicitly request "Home Assistant automation"** to distinguish from Node-RED flows or ESPHome device configs.
 
 ## Table of Contents
 - [Automations](#automations)
@@ -22,163 +24,163 @@
 ### Lighting Automations
 
 #### Basic
-- "Turn on [light] when [motion sensor] detects motion"
-- "Turn off [light] after 5 minutes of no motion"
-- "Dim [light] to 50% at sunset"
-- "Turn on outdoor lights at sunset, off at sunrise"
-- "Toggle [light] when [button] is pressed"
+- "Create a Home Assistant automation to turn on [light] when [motion sensor] detects motion"
+- "Create a Home Assistant automation to turn off [light] after 5 minutes of no motion"
+- "Create a Home Assistant automation to dim [light] to 50% at sunset"
+- "Create a Home Assistant automation for outdoor lights: on at sunset, off at sunrise"
+- "Create a Home Assistant automation to toggle [light] when [button] is pressed"
 
 #### Intermediate
-- "Create motion-activated hallway lights with 3-minute timeout"
-- "Set up adaptive lighting that matches circadian rhythm"
-- "Create a wake-up light that gradually increases brightness over 15 minutes"
-- "Sync all lights in [room] to match the main light"
-- "Create a party mode that cycles through colors"
+- "Create a Home Assistant automation for motion-activated hallway lights with 3-minute timeout"
+- "Create a Home Assistant automation for adaptive lighting that matches circadian rhythm"
+- "Create a Home Assistant automation for a wake-up light that gradually increases brightness over 15 minutes"
+- "Create a Home Assistant automation to sync all lights in [room] to match the main light"
+- "Create a Home Assistant automation for party mode that cycles through colors"
 
 #### Advanced
-- "Follow-me lighting that tracks motion across rooms"
-- "Smart dimming based on ambient light sensor readings"
-- "Light scenes that remember and restore previous states"
-- "Presence-aware lighting with timeout based on activity level"
-- "Multi-stage motion lighting: dim → bright → off"
+- "Create a Home Assistant automation for follow-me lighting that tracks motion across rooms"
+- "Create a Home Assistant automation for smart dimming based on ambient light sensor readings"
+- "Create a Home Assistant automation for light scenes that remember and restore previous states"
+- "Create a Home Assistant automation for presence-aware lighting with timeout based on activity level"
+- "Create a Home Assistant automation for multi-stage motion lighting: dim → bright → off"
 
 ### Presence Automations
 
 #### Basic
-- "Send notification when [person] arrives home"
-- "Turn off all lights when everyone leaves"
-- "Arm alarm when house is empty"
-- "Set thermostat to away mode when no one home"
-- "Track who's home using phone presence"
+- "Create a Home Assistant automation to send notification when [person] arrives home"
+- "Create a Home Assistant automation to turn off all lights when everyone leaves"
+- "Create a Home Assistant automation to arm alarm when house is empty"
+- "Create a Home Assistant automation to set thermostat to away mode when no one home"
+- "Create a Home Assistant automation to track who's home using phone presence"
 
 #### Intermediate
-- "Grace period before triggering away mode (forgot something)"
-- "Different actions for first person arriving vs additional"
-- "Proximity-based pre-arrival automation"
-- "Guest mode that adjusts presence rules"
-- "Presence zone for different areas (upstairs/downstairs)"
+- "Create a Home Assistant automation with grace period before triggering away mode (forgot something)"
+- "Create a Home Assistant automation with different actions for first person arriving vs additional"
+- "Create a Home Assistant automation for proximity-based pre-arrival"
+- "Create a Home Assistant automation for guest mode that adjusts presence rules"
+- "Create a Home Assistant automation for presence zone for different areas (upstairs/downstairs)"
 
 #### Advanced
-- "State machine for: home → recently_left → away → extended_away"
-- "Multi-person tracking with individual preferences"
-- "Bayesian presence combining multiple sensors"
-- "Work-from-home detection with different schedules"
-- "Vacation mode with random light patterns"
+- "Create a Home Assistant automation with state machine for: home → recently_left → away → extended_away"
+- "Create a Home Assistant automation for multi-person tracking with individual preferences"
+- "Create a Home Assistant automation using Bayesian presence combining multiple sensors"
+- "Create a Home Assistant automation for work-from-home detection with different schedules"
+- "Create a Home Assistant automation for vacation mode with random light patterns"
 
 ### Climate Automations
 
 #### Basic
-- "Set thermostat to 21°C at 7 AM on weekdays"
-- "Lower temperature to 18°C at night"
-- "Turn off AC when windows are opened"
-- "Turn on fan when temperature exceeds 25°C"
-- "Set different temperatures for weekdays vs weekends"
+- "Create a Home Assistant automation to set thermostat to 21°C at 7 AM on weekdays"
+- "Create a Home Assistant automation to lower temperature to 18°C at night"
+- "Create a Home Assistant automation to turn off AC when windows are opened"
+- "Create a Home Assistant automation to turn on fan when temperature exceeds 25°C"
+- "Create a Home Assistant automation for different temperatures for weekdays vs weekends"
 
 #### Intermediate
-- "Pre-heat house 30 minutes before wake-up time"
-- "Room-by-room temperature control based on occupancy"
-- "Humidity-triggered bathroom ventilation"
-- "Weather-adaptive climate control"
-- "Energy-efficient cooling during peak hours"
+- "Create a Home Assistant automation to pre-heat house 30 minutes before wake-up time"
+- "Create a Home Assistant automation for room-by-room temperature control based on occupancy"
+- "Create a Home Assistant automation for humidity-triggered bathroom ventilation"
+- "Create a Home Assistant automation for weather-adaptive climate control"
+- "Create a Home Assistant automation for energy-efficient cooling during peak hours"
 
 #### Advanced
-- "Multi-zone climate with room priority"
-- "Learning thermostat that adapts to patterns"
-- "Integration with electricity price for cost optimization"
-- "Climate scheduling with holiday/vacation overrides"
-- "Predictive heating based on outdoor temperature trends"
+- "Create a Home Assistant automation for multi-zone climate with room priority"
+- "Create a Home Assistant automation for learning thermostat that adapts to patterns"
+- "Create a Home Assistant automation with electricity price integration for cost optimization"
+- "Create a Home Assistant automation for climate scheduling with holiday/vacation overrides"
+- "Create a Home Assistant automation for predictive heating based on outdoor temperature trends"
 
 ### Security Automations
 
 #### Basic
-- "Alert when front door opens at night"
-- "Turn on lights when motion detected while away"
-- "Lock all doors at 11 PM"
-- "Notify when garage door left open"
-- "Flash lights when alarm triggers"
+- "Create a Home Assistant automation to alert when front door opens at night"
+- "Create a Home Assistant automation to turn on lights when motion detected while away"
+- "Create a Home Assistant automation to lock all doors at 11 PM"
+- "Create a Home Assistant automation to notify when garage door left open"
+- "Create a Home Assistant automation to flash lights when alarm triggers"
 
 #### Intermediate
-- "Simulated occupancy when away (random lights)"
-- "Photo capture when doorbell pressed"
-- "Different alerting for family vs unknown motion"
-- "Auto-lock door 5 minutes after unlocking"
-- "Security check before arming (all doors/windows)"
+- "Create a Home Assistant automation for simulated occupancy when away (random lights)"
+- "Create a Home Assistant automation for photo capture when doorbell pressed"
+- "Create a Home Assistant automation with different alerting for family vs unknown motion"
+- "Create a Home Assistant automation to auto-lock door 5 minutes after unlocking"
+- "Create a Home Assistant automation for security check before arming (all doors/windows)"
 
 #### Advanced
-- "Multi-tier security levels with escalating responses"
-- "Person detection with facial recognition integration"
-- "Intrusion detection with zone-specific actions"
-- "Panic mode triggered by specific button sequence"
-- "Smoke/CO alarm integration with auto-evacuation actions"
+- "Create a Home Assistant automation for multi-tier security levels with escalating responses"
+- "Create a Home Assistant automation for person detection with facial recognition integration"
+- "Create a Home Assistant automation for intrusion detection with zone-specific actions"
+- "Create a Home Assistant automation for panic mode triggered by specific button sequence"
+- "Create a Home Assistant automation for smoke/CO alarm integration with auto-evacuation actions"
 
 ### Time-Based Automations
 
 #### Basic
-- "Turn on porch light at sunset"
-- "Run morning routine at 7 AM"
-- "Weekly backup reminder every Sunday"
-- "Birthday reminders from calendar"
-- "Monthly maintenance reminders"
+- "Create a Home Assistant automation to turn on porch light at sunset"
+- "Create a Home Assistant automation for morning routine at 7 AM"
+- "Create a Home Assistant automation for weekly backup reminder every Sunday"
+- "Create a Home Assistant automation for birthday reminders from calendar"
+- "Create a Home Assistant automation for monthly maintenance reminders"
 
 #### Intermediate
-- "Workday vs weekend scheduling"
-- "Dynamic wake-up time from calendar"
-- "School year vs summer schedules"
-- "Gradual transitions between time periods"
-- "Scheduled automations with exceptions"
+- "Create a Home Assistant automation for workday vs weekend scheduling"
+- "Create a Home Assistant automation for dynamic wake-up time from calendar"
+- "Create a Home Assistant automation for school year vs summer schedules"
+- "Create a Home Assistant automation for gradual transitions between time periods"
+- "Create a Home Assistant automation for scheduled automations with exceptions"
 
 #### Advanced
-- "Astronomical triggers with offsets"
-- "Holiday-aware scheduling"
-- "Season-adaptive automations"
-- "Work schedule integration (variable)"
-- "Multi-timezone handling for travel"
+- "Create a Home Assistant automation for astronomical triggers with offsets"
+- "Create a Home Assistant automation for holiday-aware scheduling"
+- "Create a Home Assistant automation for season-adaptive automations"
+- "Create a Home Assistant automation for work schedule integration (variable)"
+- "Create a Home Assistant automation for multi-timezone handling for travel"
 
 ### Appliance Automations
 
 #### Basic
-- "Notify when washing machine finishes"
-- "Turn off TV after 4 hours"
-- "Start robot vacuum when leaving"
-- "Alert if fridge door open too long"
-- "Remind to take out trash on collection day"
+- "Create a Home Assistant automation to notify when washing machine finishes"
+- "Create a Home Assistant automation to turn off TV after 4 hours"
+- "Create a Home Assistant automation to start robot vacuum when leaving"
+- "Create a Home Assistant automation to alert if fridge door open too long"
+- "Create a Home Assistant automation to remind to take out trash on collection day"
 
 #### Intermediate
-- "Monitor dishwasher cycle and notify"
-- "Smart charging for devices during off-peak hours"
-- "Dryer cycle detection and notification"
-- "Coffee maker scheduling with presence"
-- "Robot vacuum room-by-room scheduling"
+- "Create a Home Assistant automation to monitor dishwasher cycle and notify"
+- "Create a Home Assistant automation for smart charging during off-peak hours"
+- "Create a Home Assistant automation for dryer cycle detection and notification"
+- "Create a Home Assistant automation for coffee maker scheduling with presence"
+- "Create a Home Assistant automation for robot vacuum room-by-room scheduling"
 
 #### Advanced
-- "Appliance energy optimization based on solar production"
-- "Predictive maintenance alerts (cycle counts, runtime)"
-- "Appliance usage patterns and anomaly detection"
-- "Multi-appliance coordination (don't run all at once)"
-- "Load balancing with power capacity limits"
+- "Create a Home Assistant automation for appliance energy optimization based on solar production"
+- "Create a Home Assistant automation for predictive maintenance alerts (cycle counts, runtime)"
+- "Create a Home Assistant automation for appliance usage patterns and anomaly detection"
+- "Create a Home Assistant automation for multi-appliance coordination (don't run all at once)"
+- "Create a Home Assistant automation for load balancing with power capacity limits"
 
 ### Notification Automations
 
 #### Basic
-- "Send notification when [event] happens"
-- "Daily summary notification at 8 AM"
-- "Alert when sensor goes offline"
-- "Battery low notifications for devices"
-- "Weather alert notifications"
+- "Create a Home Assistant automation to send notification when [event] happens"
+- "Create a Home Assistant automation for daily summary notification at 8 AM"
+- "Create a Home Assistant automation to alert when sensor goes offline"
+- "Create a Home Assistant automation for battery low notifications for devices"
+- "Create a Home Assistant automation for weather alert notifications"
 
 #### Intermediate
-- "Actionable notifications with response options"
-- "Escalating notifications (repeat until acknowledged)"
-- "Context-aware notifications (don't disturb sleep)"
-- "Notification routing (person-specific)"
-- "Notification grouping and rate limiting"
+- "Create a Home Assistant automation for actionable notifications with response options"
+- "Create a Home Assistant automation for escalating notifications (repeat until acknowledged)"
+- "Create a Home Assistant automation for context-aware notifications (don't disturb sleep)"
+- "Create a Home Assistant automation for notification routing (person-specific)"
+- "Create a Home Assistant automation for notification grouping and rate limiting"
 
 #### Advanced
-- "AI-prioritized notifications based on importance"
-- "Multi-channel notifications (phone, speaker, display)"
-- "Time-sensitive vs non-urgent categorization"
-- "Notification history with pattern analysis"
-- "Smart suppression during meetings/focus time"
+- "Create a Home Assistant automation for AI-prioritized notifications based on importance"
+- "Create a Home Assistant automation for multi-channel notifications (phone, speaker, display)"
+- "Create a Home Assistant automation for time-sensitive vs non-urgent categorization"
+- "Create a Home Assistant automation for notification history with pattern analysis"
+- "Create a Home Assistant automation for smart suppression during meetings/focus time"
 
 ---
 

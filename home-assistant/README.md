@@ -1,10 +1,13 @@
-# Home Assistant Code Assistant
+# Home Assistant YAML Automation Skill
 
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.x%20%2F%202025.x-blue.svg)](https://www.home-assistant.io/)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-purple.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A comprehensive Claude Code skill for creating, configuring, and troubleshooting Home Assistant automations, scripts, blueprints, templates, and integrations.
+A comprehensive Claude Code skill for creating **Home Assistant YAML automations**, scripts, blueprints, templates, and dashboard configurations.
+
+> **When to use this skill:** Use when you want YAML-based automations (automations.yaml, blueprints).
+> For visual flows, use `node-red`. For device firmware, use `esphome`. For Python custom components, use `ha-integration`.
 
 ## Features
 

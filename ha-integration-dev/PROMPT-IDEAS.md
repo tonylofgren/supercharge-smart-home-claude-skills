@@ -1,6 +1,8 @@
-# Home Assistant Integration Development - Prompt Ideas
+# Home Assistant Custom Integration Development - Prompt Ideas
 
-> 50+ advanced prompts for building custom Home Assistant integrations in Python
+> 50+ advanced prompts for building **Python custom integrations** (custom_components, HACS)
+
+**All prompts are for Python development** to distinguish from YAML automations, Node-RED flows, or ESPHome device configs. These create custom_components that run in Home Assistant Core.
 
 ## Table of Contents
 - [Config Flow & Authentication](#config-flow--authentication)
@@ -18,43 +20,43 @@
 ## Config Flow & Authentication
 
 ### OAuth2 Authentication
-- "Create a config flow with OAuth2 authentication for a cloud API like Spotify or Google"
-- "Implement application credentials for OAuth2 with automatic token refresh"
-- "Add reauth flow that triggers when OAuth2 access token is revoked"
-- "Create OAuth2 flow with PKCE (Proof Key for Code Exchange) for mobile apps"
+- "Create a Python custom integration with config flow using OAuth2 authentication for a cloud API like Spotify or Google"
+- "Build a HA custom integration with application credentials for OAuth2 with automatic token refresh"
+- "Add reauth flow to my Python integration that triggers when OAuth2 access token is revoked"
+- "Create a Python custom integration with OAuth2 flow using PKCE (Proof Key for Code Exchange) for mobile apps"
 
 ### API Key Authentication
-- "Create a config flow that validates an API key before saving"
-- "Implement config flow with API key stored securely in config entry"
-- "Add test connection button in config flow to verify API credentials"
+- "Create a Python custom integration with config flow that validates an API key before saving"
+- "Build a HA custom integration with API key stored securely in config entry"
+- "Add test connection button in my Python integration's config flow to verify API credentials"
 
 ### Local Device Authentication
-- "Create config flow with local IP address and optional password"
-- "Implement config flow that discovers devices via Zeroconf/mDNS"
-- "Add SSDP discovery for UPnP devices with automatic config flow"
-- "Create DHCP discovery that detects devices by MAC address prefix"
+- "Create a Python custom integration with config flow for local IP address and optional password"
+- "Build a HA custom integration that discovers devices via Zeroconf/mDNS"
+- "Add SSDP discovery to my Python integration for UPnP devices with automatic config flow"
+- "Create a Python custom integration with DHCP discovery that detects devices by MAC address prefix"
 
 ### Advanced Config Flow
-- "Implement multi-step config wizard with device selection"
-- "Create options flow with dynamically loaded defaults from current config"
-- "Add reconfigure flow that allows changing host without removing integration"
-- "Implement import flow to migrate YAML configuration to config entry"
+- "Build a Python integration with multi-step config wizard with device selection"
+- "Add options flow to my HA custom integration with dynamically loaded defaults from current config"
+- "Add reconfigure flow to my Python integration that allows changing host without removing integration"
+- "Build a HA custom integration with import flow to migrate YAML configuration to config entry"
 
 ---
 
 ## Data Fetching Patterns
 
 ### Polling with DataUpdateCoordinator
-- "Create DataUpdateCoordinator with 30-second polling interval"
-- "Implement coordinator with exponential backoff on API errors"
-- "Add rate limiting to coordinator to respect API limits (max 100 requests/hour)"
-- "Create coordinator that handles pagination for large API responses"
+- "Create a Python custom integration with DataUpdateCoordinator using 30-second polling interval"
+- "Build a HA custom integration with coordinator using exponential backoff on API errors"
+- "Add rate limiting to my Python integration's coordinator to respect API limits (max 100 requests/hour)"
+- "Create a Python custom integration with coordinator that handles pagination for large API responses"
 
 ### WebSocket / Push Updates
-- "Implement WebSocket connection for real-time device updates"
-- "Create coordinator that maintains persistent WebSocket with auto-reconnect"
-- "Add fallback to polling when WebSocket connection fails"
-- "Implement Server-Sent Events (SSE) for push notifications"
+- "Build a HA custom integration with WebSocket connection for real-time device updates"
+- "Create a Python integration with coordinator that maintains persistent WebSocket with auto-reconnect"
+- "Add fallback to polling in my Python integration when WebSocket connection fails"
+- "Build a HA custom integration using Server-Sent Events (SSE) for push notifications"
 
 ### Advanced Data Patterns
 - "Create multiple coordinators with different update intervals (fast/slow)"

@@ -1,14 +1,25 @@
 ---
 name: esphome-devices
 description: >
-  Use when user asks about ESP32, ESP8266, ESPHome firmware, IoT device configuration,
-  sensors, switches, displays, LEDs, or hardware components. Symptoms: "ESPHome", "ESP32",
-  "ESP8266", "GPIO", "sensor", "yaml config", "flash", "compile", "Shelly", "Sonoff", "Tuya".
+  Use when user EXPLICITLY requests "ESPHome", "ESP32", "ESP8266", or device firmware.
+  NOT for: Home automations (use home-assistant or node-red skill).
 ---
 
 # ESPHome Devices
 
 Reference skill for ESPHome device configuration and firmware.
+
+## First Step: Clarify Platform
+
+**If the user's request is about automation (not device firmware), ASK:**
+
+> "Do you want this as:
+> 1. **ESPHome config** (device firmware for ESP32/ESP8266 - runs on device)
+> 2. **Home Assistant YAML** (automations.yaml - runs in HA)
+> 3. **Node-RED flow** (visual flow - runs in Node-RED)"
+
+ESPHome is for **device-level** logic (what the chip itself does).
+Home automations should use the home-assistant or node-red skills.
 
 ## Overview
 

@@ -1,14 +1,27 @@
 ---
 name: ha-integration-dev
 description: >
-  Use when user wants to create Home Assistant custom integration, custom component,
-  or Python code for HA. Symptoms: "custom_components", "manifest.json", "config_flow",
-  "__init__.py", "DataUpdateCoordinator", "async_setup", "hass.data", HACS, "entity platform".
+  Use when user EXPLICITLY requests "custom integration", "custom component", "Python for HA",
+  "HACS", or "config_flow". NOT for: YAML automations (use home-assistant skill),
+  Node-RED flows (use node-red skill), ESPHome device configs (use esphome skill).
 ---
 
 # Home Assistant Integration Development
 
 Reference skill for developing Home Assistant custom integrations in Python.
+
+## First Step: Clarify Intent
+
+**If the user's request does NOT explicitly mention "custom integration", "Python", or "HACS", ASK:**
+
+> "Do you want to:
+> 1. **Develop a Python custom integration** (custom_components, config_flow, HACS)
+> 2. **Create a YAML automation** (automations.yaml, blueprints - use home-assistant skill)
+> 3. **Build a Node-RED flow** (visual automation - use node-red skill)
+> 4. **Configure an ESPHome device** (ESP32/ESP8266 firmware - use esphome skill)"
+
+**NEVER assume Python development.** A request like "create an integration for my thermostat"
+could mean using an existing integration (YAML) or building a custom one (Python).
 
 ## Overview
 

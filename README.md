@@ -17,13 +17,26 @@ The most comprehensive Claude Code skill pack for smart home development.
 
 ## At a Glance
 
-|  | Home Assistant | ESPHome | Integration Dev |
-|---|:---:|:---:|:---:|
-| **Reference Guides** | 49 | 25 | 17 |
-| **Example Prompts** | 300+ | 600+ | 129 |
-| **Code Examples** | 700+ | 1000+ | 200+ |
-| **Ready Templates** | 17 | 27 | 10 |
-| **Coverage** | 50+ integrations | 160+ components | Full HA framework |
+|  | Home Assistant | Node-RED | ESPHome | Integration Dev |
+|---|:---:|:---:|:---:|:---:|
+| **Reference Guides** | 49 | 12 | 25 | 17 |
+| **Example Prompts** | 300+ | 100+ | 600+ | 129 |
+| **Code Examples** | 700+ | 200+ | 1000+ | 200+ |
+| **Ready Templates** | 17 | 15 | 27 | 10 |
+| **Coverage** | 50+ integrations | 31 nodes | 160+ components | Full HA framework |
+
+---
+
+## Choosing the Right Skill
+
+| I want to... | Use this skill |
+|--------------|----------------|
+| Create **YAML automations** (automations.yaml, blueprints) | `ha-yaml` |
+| Build **visual Node-RED flows** (drag-and-drop, JSON) | `node-red` |
+| Configure **ESP32/ESP8266 device firmware** | `esphome` |
+| Develop **Python custom components** (HACS) | `ha-integration` |
+
+> **Tip:** If your request is ambiguous (e.g., "make a motion light"), the skill will ask which platform you prefer.
 
 ---
 
@@ -35,16 +48,19 @@ The most comprehensive Claude Code skill pack for smart home development.
 
 # Install for yourself globally (default - works across all projects)
 /plugin install ha-yaml@aurora-smart-home
+/plugin install node-red@aurora-smart-home
 /plugin install esphome@aurora-smart-home
 /plugin install ha-integration@aurora-smart-home
 
 # OR install for your team (shared via git)
 /plugin install ha-yaml@aurora-smart-home --scope project
+/plugin install node-red@aurora-smart-home --scope project
 /plugin install esphome@aurora-smart-home --scope project
 /plugin install ha-integration@aurora-smart-home --scope project
 
 # OR install for yourself in this project only (gitignored)
 /plugin install ha-yaml@aurora-smart-home --scope local
+/plugin install node-red@aurora-smart-home --scope local
 /plugin install esphome@aurora-smart-home --scope local
 /plugin install ha-integration@aurora-smart-home --scope local
 ```
@@ -53,16 +69,19 @@ The most comprehensive Claude Code skill pack for smart home development.
 
 ## Getting Started with Your First Project
 
-After installation, just describe what you want to build. The skills auto-activate based on your request:
+After installation, be explicit about which platform you want. Examples:
 
 ```
-💬 "Create an ESP32 temperature sensor with OLED display"
+💬 "Create an ESPHome config for an ESP32 temperature sensor with OLED display"
    → ESPHome skill activates, asks about board, generates complete config
 
-💬 "Build an automation that turns on lights at sunset"
-   → HA-YAML skill activates, clarifies format, creates automation
+💬 "Create a Home Assistant automation that turns on lights at sunset"
+   → HA-YAML skill activates, clarifies format, creates YAML automation
 
-💬 "I need a custom integration for the Acme API"
+💬 "Create a Node-RED flow for motion-activated lights"
+   → Node-RED skill activates, generates importable JSON flow
+
+💬 "Create a Python custom integration for the Acme cloud API"
    → HA-Integration skill activates, guides through architecture
 ```
 
@@ -85,9 +104,9 @@ See [SKILL-INTEGRATION.md](./SKILL-INTEGRATION.md) for detailed workflows showin
 
 ## What's Included
 
-### Home Assistant Skill (`ha-yaml`)
+### Home Assistant YAML Skill (`ha-yaml`)
 
-Your complete companion for Home Assistant configuration and automation.
+Create **YAML-based automations**, scripts, blueprints, templates, and dashboards.
 
 | Feature | Count |
 |---------|-------|
@@ -103,9 +122,27 @@ Your complete companion for Home Assistant configuration and automation.
 
 ---
 
+### Node-RED Skill (`node-red`)
+
+Build **visual automation flows** using node-red-contrib-home-assistant-websocket.
+
+| Feature | Count |
+|---------|-------|
+| Reference guides | 12 |
+| Example prompts | 100+ |
+| Flow examples | 200+ |
+| Ready-to-import templates | 15 |
+| Nodes covered | 31 |
+
+**Covers:** All HA websocket nodes, motion lights, presence detection, notifications, climate control, media, voice commands, state machines, and more.
+
+[View Node-RED documentation](./node-red/README.md)
+
+---
+
 ### ESPHome Skill (`esphome`)
 
-Everything you need for ESP32/ESP8266 device development.
+Configure **ESP32/ESP8266 device firmware** - sensors, displays, LEDs, and more.
 
 | Feature | Count |
 |---------|-------|
@@ -125,7 +162,7 @@ Everything you need for ESP32/ESP8266 device development.
 
 ### Integration Development Skill (`ha-integration`)
 
-Build custom Home Assistant integrations in Python.
+Develop **Python custom components** for Home Assistant (custom_components, HACS).
 
 | Feature | Count |
 |---------|-------|
@@ -163,11 +200,13 @@ See individual skill READMEs for detailed installation and usage:
 ```bash
 # Update a skill
 /plugin update ha-yaml@aurora-smart-home
+/plugin update node-red@aurora-smart-home
 /plugin update esphome@aurora-smart-home
 /plugin update ha-integration@aurora-smart-home
 
 # Uninstall a skill (use interactive UI - see note below)
 /plugin uninstall ha-yaml@aurora-smart-home
+/plugin uninstall node-red@aurora-smart-home
 /plugin uninstall esphome@aurora-smart-home
 /plugin uninstall ha-integration@aurora-smart-home
 ```

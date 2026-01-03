@@ -1,27 +1,27 @@
 # Node-RED Prompt Ideas
 
-Example prompts for common automations.
+Example prompts for Node-RED flows. **All prompts explicitly mention "Node-RED flow"** to distinguish from HA YAML or ESPHome.
 
 ## Lighting Automations
 
 ### Motion Lights
 
 ```
-Create a motion-activated light for my hallway.
+Create a Node-RED flow for a motion-activated light in my hallway.
 Motion sensor: binary_sensor.hallway_motion
 Light: light.hallway
 ```
 
 ```
-Make a motion light that only works at night and turns
-off after 2 minutes.
+Build a Node-RED flow for a motion light that only works at night
+and turns off after 2 minutes.
 Motion: binary_sensor.kitchen_motion
 Light: light.kitchen
 ```
 
 ```
-I want a motion light with manual override - if I manually
-turn on the light, disable automation for 30 minutes.
+Create a Node-RED flow for motion light with manual override -
+if I manually turn on the light, disable automation for 30 minutes.
 Motion: binary_sensor.bathroom_motion
 Light: light.bathroom
 ```
@@ -29,7 +29,7 @@ Light: light.bathroom
 ### Adaptive Lighting
 
 ```
-Create a flow that adjusts light brightness based on time:
+Create a Node-RED flow that adjusts light brightness based on time:
 - 6-9 AM: 60%
 - 9 AM - 9 PM: 100%
 - 9-11 PM: 40%
@@ -38,7 +38,8 @@ Light: light.living_room
 ```
 
 ```
-Make lights follow lux sensor - brighter when it's darker.
+Build a Node-RED flow where lights follow lux sensor - brighter
+when it's darker.
 Lux sensor: sensor.living_room_lux
 Light: light.living_room
 Target lux: 300
@@ -47,8 +48,8 @@ Target lux: 300
 ### Scene Control
 
 ```
-Create a scene controller that activates different scenes
-from a dropdown in HA:
+Create a Node-RED flow for a scene controller that activates
+different scenes from a dropdown in HA:
 - Morning (bright, cool)
 - Day (full brightness)
 - Evening (dimmed, warm)
@@ -57,7 +58,7 @@ from a dropdown in HA:
 ```
 
 ```
-Make a flow that cycles through scenes with a button press.
+Build a Node-RED flow that cycles through scenes with a button press.
 Button: sensor.living_room_switch_action
 Scenes: scene.morning, scene.day, scene.evening, scene.night
 ```
@@ -69,27 +70,27 @@ Scenes: scene.morning, scene.day, scene.evening, scene.night
 ### Basic Presence
 
 ```
-Turn off all lights and set thermostat to away mode
-when the last person leaves home.
+Create a Node-RED flow to turn off all lights and set thermostat
+to away mode when the last person leaves home.
 Persons: person.john, person.jane
 ```
 
 ```
-When the first person arrives home, turn on entry lights
-and set thermostat to home mode.
+Build a Node-RED flow: when the first person arrives home,
+turn on entry lights and set thermostat to home mode.
 ```
 
 ### Advanced Presence
 
 ```
-Create an arrival automation:
+Create a Node-RED flow for arrival automation:
 - First person: turn on entry light, disable alarm
 - Specific person: play their preferred music
 - Anyone: announce "Welcome home" on speaker
 ```
 
 ```
-Create a leaving automation:
+Create a Node-RED flow for leaving automation:
 - Last person: turn off all lights, lock doors, arm alarm
 - During work hours: set thermostat to away
 - Check if windows are open and notify
@@ -102,7 +103,8 @@ Create a leaving automation:
 ### Temperature
 
 ```
-Control my thermostat based on temperature sensor:
+Create a Node-RED flow to control my thermostat based on
+temperature sensor:
 - Below target: heat on
 - Above target: heat off
 - Use 0.5 degree hysteresis
@@ -112,7 +114,7 @@ Thermostat: climate.living_room
 ```
 
 ```
-Turn off heating if any window is open.
+Build a Node-RED flow to turn off heating if any window is open.
 Windows: binary_sensor.window_living_room, binary_sensor.window_kitchen
 Thermostat: climate.living_room
 ```
@@ -120,13 +122,14 @@ Thermostat: climate.living_room
 ### Scheduling
 
 ```
-Create a heating schedule:
+Create a Node-RED flow for a heating schedule:
 - Weekdays: 21°C 6-8 AM, 18°C 8 AM-4 PM, 21°C 4-10 PM, 17°C night
 - Weekend: 21°C 8 AM-11 PM, 17°C night
 ```
 
 ```
-Reduce heating by 2 degrees when no motion for 2 hours.
+Build a Node-RED flow to reduce heating by 2 degrees when no
+motion for 2 hours.
 Motion sensors: binary_sensor.motion_*
 Thermostat: climate.home
 ```
@@ -138,7 +141,7 @@ Thermostat: climate.home
 ### Alert Notifications
 
 ```
-Send notification when:
+Create a Node-RED flow to send notifications when:
 - Door left open more than 5 minutes
 - Window open and raining
 - Smoke detector triggered
@@ -146,7 +149,7 @@ Send notification when:
 ```
 
 ```
-Create a security alert flow that sends critical
+Create a Node-RED flow for security alerts that sends critical
 notification when door opens while in away mode.
 Door: binary_sensor.front_door
 Alarm: alarm_control_panel.home
@@ -156,14 +159,14 @@ Notify: notify.mobile_app_phone
 ### Smart Routing
 
 ```
-Create a notification router that:
+Create a Node-RED flow for a notification router that:
 - Respects quiet hours (11 PM - 7 AM)
 - Only notifies people who are home
 - Escalates critical alerts always
 ```
 
 ```
-Send notifications to:
+Build a Node-RED flow to route notifications:
 - If home: TTS on speakers
 - If away: push notification
 - If critical: both + phone call
@@ -172,7 +175,7 @@ Send notifications to:
 ### Daily Summaries
 
 ```
-Every day at 8 AM, send a summary with:
+Create a Node-RED flow to send daily summary at 8 AM with:
 - Today's weather
 - Calendar events
 - Energy usage yesterday
@@ -186,13 +189,13 @@ Every day at 8 AM, send a summary with:
 ### Door Monitoring
 
 ```
-Track when doors are opened and by whom (if known).
+Create a Node-RED flow to track when doors are opened and by whom.
 Log to a file or Home Assistant sensor.
 Doors: binary_sensor.front_door, binary_sensor.back_door
 ```
 
 ```
-Alert if door opens:
+Build a Node-RED flow to alert if door opens:
 - When no one is home
 - Between midnight and 6 AM
 - More than 5 times in an hour
@@ -201,12 +204,12 @@ Alert if door opens:
 ### Window Monitoring
 
 ```
-Create a "leaving home" check that lists all open
-windows and doors before arming the alarm.
+Create a Node-RED flow for "leaving home" check that lists all
+open windows and doors before arming the alarm.
 ```
 
 ```
-Alert if windows are open and:
+Build a Node-RED flow to alert if windows are open and:
 - Rain is forecast
 - Temperature drops below 10°C
 - Alarm is armed
@@ -219,7 +222,7 @@ Alert if windows are open and:
 ### Appliance Tracking
 
 ```
-Detect when washing machine finishes:
+Create a Node-RED flow to detect when washing machine finishes:
 - Running: power > 10W
 - Finished: power < 5W for 2 minutes after running
 Notify when done.
@@ -227,20 +230,21 @@ Power sensor: sensor.washing_machine_power
 ```
 
 ```
-Track daily energy usage and send summary at 11 PM.
+Build a Node-RED flow to track daily energy usage and send
+summary at 11 PM.
 Energy sensor: sensor.home_energy_daily
 ```
 
 ### High Usage Alerts
 
 ```
-Alert if power consumption exceeds 5000W for more
-than 1 minute.
+Create a Node-RED flow to alert if power consumption exceeds
+5000W for more than 1 minute.
 Power sensor: sensor.home_power
 ```
 
 ```
-Create an energy dashboard that tracks:
+Build a Node-RED flow for an energy dashboard that tracks:
 - Current power usage
 - Today's energy
 - Cost (at 1.50 SEK/kWh)
@@ -254,7 +258,7 @@ Create an energy dashboard that tracks:
 ### Playback Control
 
 ```
-Create a button controller:
+Create a Node-RED flow for button controller:
 - Single press: play/pause
 - Double press: next track
 - Long press: toggle mute
@@ -263,7 +267,7 @@ Player: media_player.bedroom_speaker
 ```
 
 ```
-Pause all media when doorbell rings.
+Build a Node-RED flow to pause all media when doorbell rings.
 Doorbell: binary_sensor.doorbell
 Players: media_player.living_room, media_player.kitchen
 ```
@@ -271,7 +275,7 @@ Players: media_player.living_room, media_player.kitchen
 ### Automation Integration
 
 ```
-When movie scene is activated:
+Create a Node-RED flow for movie scene automation:
 - Dim lights to 10%
 - Set TV to correct input
 - Pause music
@@ -285,7 +289,7 @@ When movie scene is activated:
 ### Voice Commands
 
 ```
-Create a flow that responds to "good night" sentence:
+Create a Node-RED flow that responds to "good night" sentence:
 - Turn off all lights
 - Lock doors
 - Set alarm
@@ -293,7 +297,7 @@ Create a flow that responds to "good night" sentence:
 ```
 
 ```
-Handle "I'm leaving" command:
+Build a Node-RED flow to handle "I'm leaving" command:
 - Turn off all lights
 - Check all windows
 - Announce any issues
@@ -303,12 +307,12 @@ Handle "I'm leaving" command:
 ### Room Presence
 
 ```
-Track which room someone is in based on motion sensors.
-Update input_select.current_room with latest motion location.
+Create a Node-RED flow to track which room someone is in based
+on motion sensors. Update input_select.current_room.
 ```
 
 ```
-Create a "follow me" light that:
+Build a Node-RED flow for "follow me" light that:
 - Turns on light in room with motion
 - Turns off light in room without motion (after 5 min)
 - Doesn't affect manually controlled lights
@@ -321,12 +325,13 @@ Create a "follow me" light that:
 ### Schedules
 
 ```
-Turn on porch light at sunset, off at sunrise.
+Create a Node-RED flow to turn on porch light at sunset,
+off at sunrise.
 Light: light.porch
 ```
 
 ```
-Every weekday at 6:30 AM:
+Build a Node-RED flow for weekday 6:30 AM routine:
 - Turn on bedroom light at 30%
 - Gradually increase to 100% over 15 minutes
 - Start playing news on speaker
@@ -335,7 +340,7 @@ Every weekday at 6:30 AM:
 ### Conditional Schedules
 
 ```
-Weekday morning routine (skip on holidays):
+Create a Node-RED flow for weekday morning routine (skip on holidays):
 - 6:30 AM: Bedroom light to 30%
 - 6:45 AM: Start coffee maker
 - 7:00 AM: Announce weather

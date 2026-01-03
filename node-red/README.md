@@ -1,6 +1,9 @@
 # Node-RED Skill for Home Assistant
 
-Build Node-RED flows for Home Assistant automation using node-red-contrib-home-assistant-websocket.
+Build **Node-RED flows** for Home Assistant automation using node-red-contrib-home-assistant-websocket.
+
+> **When to use this skill:** Use when you want visual, drag-and-drop automation flows (JSON).
+> For YAML automations, use `home-assistant`. For device firmware, use `esphome`.
 
 ## Quick Start
 

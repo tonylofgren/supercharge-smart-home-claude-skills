@@ -60,6 +60,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `aurora/SKILL.md` wiring: **Step 1.5 Offer a Recipe** suggests the 3-5 closest recipes when intent is broad (and skips for already-specified requests), and **Step 7.6 Recipe-to-project flow** turns a chosen recipe into a generated project with the user customising afterward.
 - 78 contract tests in `aurora/tests/test_recipe_library.py`: required header keys and sections, slug/name agreement, index/file agreement, no invented LCSC numbers, no em dashes, and the SKILL.md wiring. Suite: 836 passed.
 
+## [1.11.0] - 2026-06-12
+
 ### Added
 
 - **Verified LCSC part numbers in component profiles.** 9 of 10 sensor profiles now carry real JLCPCB part numbers verified live against the JLCPCB parts catalog (SCD40-D-R2 C3659421, MH-Z19B C242514, BME280 C92489, BMP280 C83291, AM2302/DHT22 C83988, DS18B20+ C9753, HLK-LD2410-P C5183133, AM312 C114881, MF52A 10k B3950 C5439712), all extended-library. The capacitive soil sensor v1.2 stays TBD: it is a hobby breakout JLCPCB does not stock. Volt copies verified numbers into schematic.json and BOM.csv instead of TBD.

@@ -170,8 +170,8 @@ This step lowers onboarding friction; it never blocks an experienced user who al
 
 | Agent | Skill | Model | Fallback | Domain | Trigger Keywords |
 |-------|-------|-------|----------|--------|-----------------|
-| **Volt** | `esphome` | sonnet | haiku | ESP32/ESP8266/Shelly firmware + IR proxy | ESP32, ESP8266, GPIO, flash, compile, sensor yaml, Shelly, Sonoff, Tuya, IR blaster, IR proxy, infrared, remote control, ir_rf_proxy, RP2040, RP2350, Pico |
-| **Nano** | `esphome` | sonnet | sonnet | Matter, Thread, BLE, protocols | Matter, Thread, BLE proxy, Zigbee, embedded protocol, Apple Home, Google Home |
+| **Volt** | `esphome` | sonnet | haiku | ESP32/ESP8266/Shelly firmware + IR proxy | ESP32, ESP8266, GPIO, flash, compile, sensor yaml, Shelly, Sonoff, Tuya, IR blaster, IR proxy, infrared, remote control, ir_rf_proxy, RP2040, RP2350, Pico, mmWave, radar, LD2410, presence sensor, närvarosensor, DLMS, smart meter, P1 meter |
+| **Nano** | `esphome` | sonnet | sonnet | Matter, Thread, BLE, protocols | Matter, Thread, BLE proxy, Zigbee, embedded protocol, Apple Home, Google Home, SkyConnect, Connect ZBT-1, ZHA |
 | **Echo** | `esphome` + `ha-yaml` | sonnet | sonnet | Voice, audio, wake word | Micro Wake Word, voice assistant, speaker, microphone, I2S, STT, TTS, Assist pipeline, vacuum area cleaning |
 | **Watt** | `esphome` | haiku | haiku | Power budget, battery sizing, solar dimensioning | battery, solar, deep_sleep, power bank, 12V, strömbudget, batteridrivet, solcell, batterilivslängd, off-grid |
 
@@ -183,7 +183,7 @@ This step lowers onboarding friction; it never blocks an experienced user who al
 | **Ada** | `ha-integration` | opus | sonnet | Python custom integrations | custom_components, Python, coordinator, config_flow, HACS, cloud API, OAuth2, REST integration |
 | **Mira** | `ha-integration` + `ha-yaml` | opus | sonnet | LLM, AI, conversation agents | LLM, Ollama, ChatGPT, OpenAI, conversation agent, AI assistant, generative |
 | **River** | `node-red` | sonnet | haiku | Visual automation flows | Node-RED, flow, function node, trigger-state, visual programming, MQTT flow |
-| **Iris** | `ha-dashboard-design` | sonnet | haiku | Dashboard visual design | Mushroom, minimalist, sky connect, card layout, beautiful dashboard, styling, theme |
+| **Iris** | `ha-dashboard-design` | sonnet | haiku | Dashboard visual design | Mushroom, minimalist, card layout, beautiful dashboard, styling, theme, card-mod, Lovelace |
 
 ### External Data
 
@@ -246,7 +246,7 @@ If ANY trigger matches: the workflow MUST start with Vera (hazard analysis per `
 
 ## Current Platform Versions
 
-HA 2026.5 + ESPHome 2026.4.5. Read `aurora/references/platform-versions.md` for full feature list and routing hints.
+HA 2026.7 + ESPHome 2026.6. Read `aurora/references/platform-versions.md` for full feature list and routing hints.
 
 ## Step 2.5: Load Specialist Soul (before delegating)
 
@@ -279,7 +279,7 @@ For DEEP mode (multiple specialists): load every involved soul before the first 
 Each agent has a primary model and a fallback. Use the primary when available;
 fall back gracefully based on the user's subscription tier.
 
-### Model Names (audited 2026-06-12)
+### Model Names (audited 2026-07-05)
 
 The registry uses tier names, not pinned versions. As of this audit the tiers map to:
 
@@ -287,7 +287,7 @@ The registry uses tier names, not pinned versions. As of this audit the tiers ma
 |-----------|---------------|-------------|
 | fable | Claude Fable 5 | Escalation tier above opus: 3+ specialist DEEP workflows, release-gating security audits |
 | opus | Claude Opus 4.8 | Ada, Mira, Glitch, Lens, Grid primaries |
-| sonnet | Claude Sonnet 4.6 | Default workhorse for most specialists |
+| sonnet | Claude Sonnet 5 | Default workhorse for most specialists |
 | haiku | Claude Haiku 4.5 | Watt, Manual, Probe, and simple QUICK tasks |
 
 Re-audit this mapping at every release; model names age quickly. If a newer model family exists than the one listed here, prefer it and update this table.
@@ -329,6 +329,9 @@ Always respond with this structure:
 
 # Mode
 {QUICK or DEEP} — {one-line reason}
+
+# Language
+{detected deliverable language, per the Language Rule; specialists never re-detect}
 
 # Agent Routing
 {Agent (skill)} — {what they handle in this specific request}

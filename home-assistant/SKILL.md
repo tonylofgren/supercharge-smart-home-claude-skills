@@ -299,8 +299,29 @@ When a request involves more than YAML configuration, hand it off to the right s
 - **Code editor autocomplete** - YAML editor in Developer Tools now offers entity, service, and attribute completion.
 - **12 new integrations** - EARN-E P1 Meter, OMIE energy prices, Denon RS232, Duco, Eurotronic, Fumis, Honeywell String Lights, Kiosker, Victron GX, OpenDisplay, Novy Cooker Hood, and the Radio Frequency integration itself.
 
-### Legacy Template Entity Migration (CRITICAL - deadline HA 2026.6)
-- **`platform: template` sensors stop working in HA 2026.6**
+### What's new in HA 2026.6 (released 2026-06-03)
+
+- **Legacy `platform: template` entities REMOVED** - old-style template entities under individual platform keys (alarm_control_panel, binary_sensor, cover, fan, light, lock, sensor, switch, vacuum, weather) no longer load. Deprecated since 2025.12; the removal is now in effect. Migrate to the `template:` integration (see Modern Syntax below).
+- **IR receiver event entities** - the Infrared platform now receives as well as transmits; ESPHome is the first transmitter integration, and received IR commands can trigger automations as events.
+- **Zone-based triggers and conditions in the automation editor (Labs)** - enter/leave/occupied/empty triggers and in/not-in/occupied conditions with a `for:` duration; successors to the removed `entered_home`/`left_home` device-tracker shorthand.
+- **Card picker by entity** - the add-card dialog opens on a "By entity" tree with live previews of cards that fit the picked entity.
+- **Tile card gains weather forecast features** and remote-style media player controls.
+- **Z-Wave smart lock credential management** from the UI.
+- **Removed**: Konnected integration (migrate hardware to ESPHome), `velux.reboot_gateway` action (use the reboot button entity).
+- **16 new integrations**, including LG TV via Serial, Mitsubishi Comfort, and Yoto.
+
+### What's new in HA 2026.7 (released 2026-07-01)
+
+- **Purpose-specific triggers and conditions are the new default** (graduated from Labs) - automations describe intent ("when temperature drops below 18") instead of raw entity/state plumbing, and integrations can register their own trigger/condition types. Classic YAML triggers, conditions, and templates keep working unchanged; no migration required.
+- **Activity timeline** - the logbook is rebuilt as a day-grouped timeline with colored state dots.
+- **Update all** - the Updates page groups updates into cards (core/OS manual; ESPHome devices and HACS bundled) with one-tap bulk update per card.
+- **Dedicated Infrared and Radio Frequency settings panels** when such devices exist.
+- **ZHA Zigbee device management overhaul.**
+- **Breaking**: Z-Wave JS now requires zwave-js-server 3.9.0+ (Z-Wave JS UI 11.19.1+); position-aware device trackers now report the *smallest* enclosing zone rather than nearest-center, which can shift zone-count automations; a batch of long-broken integrations was removed.
+- **10 new integrations**, including Dropbox, MELCloud Home, and KlikAanKlikUit.
+
+### Legacy Template Entity Migration (REMOVED in HA 2026.6)
+- **`platform: template` entities no longer load since HA 2026.6**
 - Must migrate to the `template:` integration format
 - See Modern Syntax section below for before/after examples
 
@@ -412,7 +433,7 @@ triggers:
 
 ### Template Sensors
 ```yaml
-# Old (STOPS WORKING in HA 2026.6!)
+# Old (REMOVED in HA 2026.6 - no longer loads)
 sensor:
   - platform: template
     sensors:
@@ -442,7 +463,7 @@ template:
 - [ ] Uses plural keys: `triggers:`, `conditions:`, `actions:` (HA 2024.10)
 - [ ] Uses `trigger: state` not `platform: state` inside triggers
 - [ ] No deprecated `service_template` or `data_template`
-- [ ] No `platform: template` sensors (use `template:` integration - deadline 2026.6)
+- [ ] No `platform: template` sensors (removed in HA 2026.6; use the `template:` integration)
 - [ ] `entity_id` under `target:` block (not in `data:`)
 - [ ] All template syntax uses `{{ }}` correctly
 - [ ] Quotes around string states: `to: "on"` not `to: on`

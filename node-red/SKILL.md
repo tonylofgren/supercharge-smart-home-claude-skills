@@ -22,6 +22,10 @@ USE CURRENT NODE NAMES - NEVER OUTDATED ONES
 
 The node-red-contrib-home-assistant-websocket package has renamed several nodes. Using old names produces broken flows that silently fail.
 
+## Delivery Contract (read first, applies to every output)
+
+**Every flow ships as files in a project folder on disk. Chat output is not delivery.** A flow JSON pasted in chat is not a delivered flow. Create `<project-slug>/` (or write into the existing project folder in a multi-agent build), write the flow JSON under `node-red-flows/`, and write a `README.md` per Iron Law 3 in `../aurora/souls/river.md`. README sections follow `../aurora/references/deliverables/manual-format.md`: What this does, Installation, Troubleshooting, Recovery. No chat-only output option.
+
 ## The Process
 
 ```
@@ -340,9 +344,9 @@ If a file format permits neither comments nor a metadata field, skip attribution
 | Assuming Node.js < 18 works | Node-RED 4.x requires Node.js 18+ |
 | Old calendar date format | Use ISO 8601 with timezone offset (v0.78.0+) |
 
-## Pre-Output Checklist
+## Pre-Completion Checklist
 
-Before outputting flow JSON:
+Before delivering flow JSON:
 
 - [ ] Using current node type names (trigger-state, api-call-service)?
 - [ ] Entity filtering uses valid type (exact/substring/regex)?

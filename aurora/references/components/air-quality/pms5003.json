@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../schemas/component-profile.schema.json",
+  "schema_version": "1.1",
+  "component_id": "pms5003",
+  "display_name": "PMS5003 Particulate Matter Sensor (PM1.0 / PM2.5 / PM10)",
+  "type": "particulate_matter",
+  "category": "air-quality",
+  "protocol": "uart",
+  "last_verified": "2026-07-05",
+  "variants": {
+    "primary": "pms5003",
+    "easily_confused_with": [
+      {
+        "component_id": "pms7003",
+        "difference": "PMS7003 is a smaller module with the same data protocol; both use ESPHome type PMSX003"
+      },
+      {
+        "component_id": "pms5003t",
+        "difference": "PMS5003T adds temperature and humidity and needs ESPHome type PMS5003T instead of PMSX003"
+      },
+      {
+        "component_id": "pms5003s",
+        "difference": "PMS5003S adds formaldehyde and needs ESPHome type PMS5003S instead of PMSX003"
+      }
+    ],
+    "knockoffs_known": false,
+    "verification_method": "Check the silkscreen suffix; T/S/ST variants report extra values and need a different ESPHome type: setting"
+  },
+  "pin_requirements": {
+    "count": 2,
+    "type": "uart_tx_rx",
+    "adc_required": false,
+    "input_only_ok": false,
+    "strapping_pin_ok": false,
+    "5v_tolerant_required": false,
+    "interrupt_capable_required": false
+  },
+  "external_components": {
+    "pullup_resistor": null,
+    "decoupling_cap": null
+  },
+  "power": {
+    "voltage_min": 4.5,
+    "voltage_max": 5.5,
+    "tolerates_5v": true,
+    "level_shifter_required_on_5v_board": false,
+    "current_ma_active": 100,
+    "current_sleep_ua": 200
+  },
+  "limitations": {
+    "vcc_must_be_5v": true,
+    "logic_level_v": 3.3,
+    "uart_baud": 9600,
+    "laser_lifetime_h": 8000,
+    "fan_is_mechanical_consumable": true,
+    "update_interval_note": "tx_pin is optional but required for update_interval control; set update_interval >= 120s to extend laser and fan life",
+    "operating_temp_c": "-10 to +60"
+  },
+  "calibration": {
+    "required": false,
+    "type": "factory_calibrated"
+  },
+  "esphome": {
+    "platform": "pmsx003",
+    "min_version": "2021.8.0"
+  },
+  "datasheet_url": "https://www.aqmd.gov/docs/default-source/aq-spec/resources-page/plantower-pms5003-manual_v2-3.pdf",
+  "sourcing": {
+    "lcsc": "C91431",
+    "jlcpcb_library_type": "expand",
+    "jlcpcb_checked": "2026-07-05",
+    "jlcpcb_stock_status": "out_of_stock"
+  }
+}

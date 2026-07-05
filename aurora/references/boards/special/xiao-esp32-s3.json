@@ -1,0 +1,207 @@
+{
+  "$schema": "../../schemas/board-profile.schema.json",
+  "schema_version": "1.0",
+  "board_id": "xiao-esp32-s3",
+  "board_type": "dev_board",
+  "display_name": "Seeed Studio XIAO ESP32-S3",
+  "chip": "ESP32-S3",
+  "manufacturer": "Seeed Studio",
+  "wireless": {
+    "wifi": [
+      "2.4GHz"
+    ],
+    "wifi_standard": "WiFi 4 (b/g/n)",
+    "bluetooth": "BLE 5.0",
+    "bluetooth_classic": false,
+    "thread": false,
+    "zigbee": false,
+    "lora": null,
+    "ethernet": null
+  },
+  "power": {
+    "usb_type": "USB-C",
+    "operating_voltage": 3.3,
+    "input_voltage_range": "5V (USB-C) or 3.7V LiPo on solder pads",
+    "battery_connector": "solder pads (3.7V LiPo, 100mA fast / 0.9mA trickle charge)",
+    "charging_ic": null,
+    "vbat_monitor_pin": null,
+    "deep_sleep_current_ua": 14,
+    "light_sleep_current_ma": null,
+    "modem_sleep_current_ma": null,
+    "solar_input": false,
+    "gpio_5v_tolerant": false
+  },
+  "memory": {
+    "flash_mb": 8,
+    "psram_mb": 8,
+    "psram_type": "OPI (octal)",
+    "ram_kb": 512
+  },
+  "gpio": {
+    "valid_pins": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      43,
+      44
+    ],
+    "strapping_pins": [
+      0,
+      3,
+      45,
+      46
+    ],
+    "reserved_for_usb": [
+      19,
+      20
+    ],
+    "reserved_for_flash": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "input_only": [],
+    "adc1_pins": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "adc2_pins": [],
+    "touch_pins": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "dac_pins": [],
+    "wake_source_pins": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "i2c_default": {
+      "sda": 5,
+      "scl": 6
+    },
+    "spi_default": {
+      "mosi": 9,
+      "miso": 8,
+      "sck": 7
+    }
+  },
+  "onboard_components": {
+    "led_gpio": 21,
+    "led_type": "single yellow user LED (LED_BUILTIN)",
+    "boot_button_gpio": 0,
+    "reset_button": "button",
+    "display": null,
+    "imu": null,
+    "buzzer": null
+  },
+  "smart_home_capabilities": {
+    "bluetooth_proxy": true,
+    "voice_assistant": true,
+    "matter_controller": true,
+    "matter_device": true,
+    "zigbee_coordinator": false,
+    "thread_border_router": false,
+    "ble_tracker": true,
+    "camera_support": false,
+    "battery_powered": true,
+    "ir_blaster": true,
+    "rf_proxy_cc1101": true
+  },
+  "ota_safety": {
+    "factory_reset_pin": 0,
+    "external_programmer_needed": false,
+    "usb_cdc_recovery": true,
+    "min_required_features_for_unbricking": [
+      "wifi",
+      "ota OR usb_cdc"
+    ]
+  },
+  "form_factor": {
+    "antenna": "onboard + external U.FL (included)",
+    "ipex_connector": true,
+    "dimensions_mm": "21 x 17.8",
+    "certifications": [
+      "FCC",
+      "CE"
+    ],
+    "operating_temp_c": "-40 to +85"
+  },
+  "limitations": {
+    "max_cpu_mhz": 240,
+    "no_dac": true,
+    "usb_blocks_gpio": [
+      19,
+      20
+    ],
+    "psram_blocks_gpio": [
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "adc2_blocked_when_wifi_active": true,
+    "strapping_conflict_warnings": [
+      "GPIO 3 (edge pin D2) is a strapping pin (JTAG signal source) - avoid external pull at boot",
+      "GPIO 0 is the BOOT button and must be HIGH at boot; it is not on the D0-D10 edge",
+      "GPIO 45 and 46 are chip strapping pins but not exposed on the edge",
+      "No battery voltage monitoring in software: Seeed exposes no GPIO for VBAT sensing on the plain XIAO ESP32-S3",
+      "Camera and SD slot exist only on the XIAO ESP32-S3 Sense variant, not this plain board"
+    ]
+  },
+  "lifecycle": {
+    "status": "active",
+    "deprecated_since": null,
+    "reason": null,
+    "successor": null
+  },
+  "esphome": {
+    "platform": "esp32",
+    "variant": "ESP32S3",
+    "framework": "esp-idf",
+    "min_version": "2023.6.0",
+    "board": "seeed_xiao_esp32s3"
+  },
+  "datasheet_url": "https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/",
+  "last_verified": "2026-07-05",
+  "verified_source": "Seeed wiki xiao_esp32s3 + arduino-esp32 variants/XIAO_ESP32S3/pins_arduino.h + platformio seeed_xiao_esp32s3.json + Espressif ESP32-S3 datasheet",
+  "recommended_for": [
+    "Voice assistant satellite (dual core, 8MB OPI PSRAM)",
+    "Battery-powered projects (14 uA deep sleep, LiPo charging onboard)",
+    "Compact builds that need PSRAM and processing headroom",
+    "BLE proxy plus local processing in XIAO format"
+  ],
+  "not_recommended_for": [
+    "Thread/Zigbee/Matter-over-Thread devices (no 802.15.4 radio; pick the XIAO ESP32-C6)",
+    "Camera projects on the plain board (camera connector is Sense-only)",
+    "Projects that need many GPIO (11 edge pins)"
+  ]
+}

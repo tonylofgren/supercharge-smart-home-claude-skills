@@ -1,0 +1,182 @@
+{
+  "$schema": "../../schemas/board-profile.schema.json",
+  "schema_version": "1.0",
+  "board_id": "xiao-esp32-c6",
+  "board_type": "dev_board",
+  "display_name": "Seeed Studio XIAO ESP32-C6",
+  "chip": "ESP32-C6",
+  "manufacturer": "Seeed Studio",
+  "wireless": {
+    "wifi": [
+      "2.4GHz"
+    ],
+    "wifi_standard": "WiFi 6 (ax)",
+    "bluetooth": "BLE 5.3",
+    "bluetooth_classic": false,
+    "thread": true,
+    "zigbee": true,
+    "lora": null,
+    "ethernet": null
+  },
+  "power": {
+    "usb_type": "USB-C",
+    "operating_voltage": 3.3,
+    "input_voltage_range": "5V (USB-C) or 3.7V LiPo on solder pads",
+    "battery_connector": "solder pads (3.7V LiPo)",
+    "charging_ic": null,
+    "vbat_monitor_pin": null,
+    "deep_sleep_current_ua": 15,
+    "light_sleep_current_ma": null,
+    "modem_sleep_current_ma": null,
+    "solar_input": false,
+    "gpio_5v_tolerant": false
+  },
+  "memory": {
+    "flash_mb": 4,
+    "psram_mb": 0,
+    "psram_type": null,
+    "ram_kb": 512
+  },
+  "gpio": {
+    "valid_pins": [
+      0,
+      1,
+      2,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "strapping_pins": [
+      4,
+      5,
+      8,
+      9,
+      15
+    ],
+    "reserved_for_usb": [
+      12,
+      13
+    ],
+    "reserved_for_flash": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "input_only": [],
+    "adc1_pins": [
+      0,
+      1,
+      2
+    ],
+    "adc2_pins": [],
+    "touch_pins": [],
+    "dac_pins": [],
+    "wake_source_pins": [
+      0,
+      1,
+      2
+    ],
+    "i2c_default": {
+      "sda": 22,
+      "scl": 23
+    },
+    "spi_default": {
+      "mosi": 18,
+      "miso": 20,
+      "sck": 19
+    }
+  },
+  "onboard_components": {
+    "led_gpio": 15,
+    "led_type": "single user LED (LED_BUILTIN)",
+    "boot_button_gpio": 9,
+    "reset_button": "button",
+    "display": null,
+    "imu": null,
+    "buzzer": null
+  },
+  "smart_home_capabilities": {
+    "bluetooth_proxy": true,
+    "voice_assistant": false,
+    "matter_controller": true,
+    "matter_device": true,
+    "zigbee_coordinator": true,
+    "thread_border_router": true,
+    "ble_tracker": true,
+    "camera_support": false,
+    "battery_powered": true,
+    "ir_blaster": true,
+    "rf_proxy_cc1101": true
+  },
+  "ota_safety": {
+    "factory_reset_pin": 9,
+    "external_programmer_needed": false,
+    "usb_cdc_recovery": true,
+    "min_required_features_for_unbricking": [
+      "wifi",
+      "ota OR usb_cdc"
+    ]
+  },
+  "form_factor": {
+    "antenna": "onboard ceramic + external U.FL (switchable via GPIO3/GPIO14)",
+    "ipex_connector": true,
+    "dimensions_mm": "21 x 17.8",
+    "certifications": [
+      "FCC",
+      "CE"
+    ],
+    "operating_temp_c": "-40 to +85"
+  },
+  "limitations": {
+    "max_cpu_mhz": 160,
+    "no_dac": true,
+    "usb_blocks_gpio": [
+      12,
+      13
+    ],
+    "psram_blocks_gpio": [],
+    "adc2_blocked_when_wifi_active": false,
+    "strapping_conflict_warnings": [
+      "Chip strapping pins GPIO 4/5/8/9/15 are NOT on the D0-D10 edge; GPIO 15 drives the user LED and GPIO 9 the BOOT button",
+      "Antenna switch: GPIO 3 LOW enables the RF switch, then GPIO 14 HIGH selects the external U.FL antenna; GPIO 14 LOW (default) uses the onboard ceramic antenna",
+      "No onboard battery voltage divider: measuring VBAT needs an external divider soldered to A0/GPIO 0",
+      "Deep-sleep GPIO wakeup is limited to the LP pins exposed on the edge (GPIO 0-2)"
+    ]
+  },
+  "lifecycle": {
+    "status": "active",
+    "deprecated_since": null,
+    "reason": null,
+    "successor": null
+  },
+  "esphome": {
+    "platform": "esp32",
+    "variant": "ESP32C6",
+    "framework": "esp-idf",
+    "min_version": "2023.11.0",
+    "board": "seeed_xiao_esp32c6"
+  },
+  "datasheet_url": "https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/",
+  "last_verified": "2026-07-05",
+  "verified_source": "Seeed wiki xiao_esp32c6 + arduino-esp32 variants/XIAO_ESP32C6/pins_arduino.h + platformio seeed_xiao_esp32c6.json + Espressif ESP32-C6 datasheet",
+  "recommended_for": [
+    "Tiny Thread/Zigbee/Matter devices (802.15.4 radio in XIAO format)",
+    "Battery-powered sensors (15 uA deep sleep, LiPo charging onboard)",
+    "Zigbee or Thread devices in a small enclosure",
+    "WiFi 6 capable compact IoT builds"
+  ],
+  "not_recommended_for": [
+    "Voice assistant (single core, no PSRAM)",
+    "Camera projects (no PSRAM)",
+    "Projects that need many GPIO (11 edge pins)"
+  ]
+}

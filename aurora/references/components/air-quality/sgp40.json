@@ -1,0 +1,80 @@
+{
+  "$schema": "../../../schemas/component-profile.schema.json",
+  "schema_version": "1.1",
+  "component_id": "sgp40",
+  "display_name": "SGP40 VOC Index Sensor",
+  "type": "voc",
+  "category": "air-quality",
+  "protocol": "i2c",
+  "last_verified": "2026-07-05",
+  "variants": {
+    "primary": "sgp40",
+    "easily_confused_with": [
+      {
+        "component_id": "sgp41",
+        "difference": "SGP41 adds a NOx index; the shared sgp4x platform auto-detects the chip and ignores NOx config on an SGP40"
+      },
+      {
+        "component_id": "sgp30",
+        "difference": "SGP30 is the older eCO2/TVOC sensor and uses the separate sgp30 ESPHome platform, not sgp4x"
+      }
+    ],
+    "knockoffs_known": false,
+    "verification_method": "sgp4x auto-detects SGP40 vs SGP41 at boot; check the Sensirion part marking on the DFN-6 package"
+  },
+  "i2c": {
+    "default_addresses": [
+      "0x59"
+    ],
+    "address_strap_pin": null,
+    "max_speed_khz": 400
+  },
+  "pin_requirements": {
+    "count": 2,
+    "type": "i2c",
+    "must_use_default_i2c_pins": false,
+    "adc_required": false,
+    "input_only_ok": false,
+    "strapping_pin_ok": false,
+    "5v_tolerant_required": false,
+    "interrupt_capable_required": false
+  },
+  "external_components": {
+    "pullup_resistor": {
+      "value_ohm": 10000,
+      "required": true,
+      "note": "10kΩ I2C pull-ups; most breakout boards include them"
+    },
+    "decoupling_cap": null
+  },
+  "power": {
+    "voltage_min": 1.7,
+    "voltage_max": 3.6,
+    "tolerates_5v": false,
+    "level_shifter_required_on_5v_board": true,
+    "current_ma_active": 2.6,
+    "current_sleep_ua": 0
+  },
+  "limitations": {
+    "voc_index_range": "1-500",
+    "algorithm_learning_time_h": 12,
+    "index_computed_host_side": true,
+    "note": "Chip outputs a raw SRAW signal; the VOC Index is computed by Sensirion's Gas Index Algorithm inside the ESPHome component and self-adapts over the learning window. Optional compensation: block improves accuracy with an external temperature and humidity source.",
+    "operating_temp_c": "-10 to +50"
+  },
+  "calibration": {
+    "required": false,
+    "type": "none_self_adapting_gas_index_algorithm"
+  },
+  "esphome": {
+    "platform": "sgp4x",
+    "min_version": "2022.6.0"
+  },
+  "datasheet_url": "https://sensirion.com/media/documents/296373BB/6203C5DF/Sensirion_Gas_Sensors_Datasheet_SGP40.pdf",
+  "sourcing": {
+    "lcsc": "C2874215",
+    "jlcpcb_library_type": "expand",
+    "jlcpcb_checked": "2026-07-05",
+    "jlcpcb_stock_status": "low_stock"
+  }
+}

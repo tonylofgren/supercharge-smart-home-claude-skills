@@ -1,0 +1,185 @@
+{
+  "$schema": "../../schemas/board-profile.schema.json",
+  "schema_version": "1.0",
+  "board_id": "xiao-esp32-c3",
+  "board_type": "dev_board",
+  "display_name": "Seeed Studio XIAO ESP32-C3",
+  "chip": "ESP32-C3",
+  "manufacturer": "Seeed Studio",
+  "wireless": {
+    "wifi": [
+      "2.4GHz"
+    ],
+    "wifi_standard": "WiFi 4 (b/g/n)",
+    "bluetooth": "BLE 5.0",
+    "bluetooth_classic": false,
+    "thread": false,
+    "zigbee": false,
+    "lora": null,
+    "ethernet": null
+  },
+  "power": {
+    "usb_type": "USB-C",
+    "operating_voltage": 3.3,
+    "input_voltage_range": "5V (USB-C) or 3.7V LiPo on solder pads",
+    "battery_connector": "solder pads (3.7V LiPo, 380mA fast / 40mA trickle charge)",
+    "charging_ic": null,
+    "vbat_monitor_pin": null,
+    "deep_sleep_current_ua": 44,
+    "light_sleep_current_ma": null,
+    "modem_sleep_current_ma": null,
+    "solar_input": false,
+    "gpio_5v_tolerant": false
+  },
+  "memory": {
+    "flash_mb": 4,
+    "psram_mb": 0,
+    "psram_type": null,
+    "ram_kb": 400
+  },
+  "gpio": {
+    "valid_pins": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      20,
+      21
+    ],
+    "strapping_pins": [
+      2,
+      8,
+      9
+    ],
+    "reserved_for_usb": [
+      18,
+      19
+    ],
+    "reserved_for_flash": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "input_only": [],
+    "adc1_pins": [
+      2,
+      3,
+      4
+    ],
+    "adc2_pins": [
+      5
+    ],
+    "touch_pins": [],
+    "dac_pins": [],
+    "wake_source_pins": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "i2c_default": {
+      "sda": 6,
+      "scl": 7
+    },
+    "spi_default": {
+      "mosi": 10,
+      "miso": 9,
+      "sck": 8
+    }
+  },
+  "onboard_components": {
+    "led_gpio": null,
+    "led_type": null,
+    "boot_button_gpio": 9,
+    "reset_button": "button",
+    "display": null,
+    "imu": null,
+    "buzzer": null
+  },
+  "smart_home_capabilities": {
+    "bluetooth_proxy": true,
+    "voice_assistant": false,
+    "matter_controller": true,
+    "matter_device": true,
+    "zigbee_coordinator": false,
+    "thread_border_router": false,
+    "ble_tracker": true,
+    "camera_support": false,
+    "battery_powered": true,
+    "ir_blaster": true,
+    "rf_proxy_cc1101": true
+  },
+  "ota_safety": {
+    "factory_reset_pin": 9,
+    "external_programmer_needed": false,
+    "usb_cdc_recovery": true,
+    "min_required_features_for_unbricking": [
+      "wifi",
+      "ota OR usb_cdc"
+    ]
+  },
+  "form_factor": {
+    "antenna": "external U.FL only (antenna included; no onboard antenna)",
+    "ipex_connector": true,
+    "dimensions_mm": "21 x 17.8",
+    "certifications": [
+      "FCC",
+      "CE"
+    ],
+    "operating_temp_c": "-40 to +85"
+  },
+  "limitations": {
+    "max_cpu_mhz": 160,
+    "no_dac": true,
+    "usb_blocks_gpio": [
+      18,
+      19
+    ],
+    "psram_blocks_gpio": [],
+    "adc2_blocked_when_wifi_active": true,
+    "strapping_conflict_warnings": [
+      "GPIO 2 (edge pin D0) must be HIGH at boot for normal operation",
+      "GPIO 8 (edge pin D8) controls ROM log printing at boot",
+      "GPIO 9 (edge pin D9) is the BOOT button and must be HIGH at boot for normal flash execution",
+      "The included external U.FL antenna must be attached: there is no onboard antenna, so WiFi/BLE is unusable without it",
+      "No user LED (the orange LED is charger-driven); no GPIO exposes battery voltage"
+    ]
+  },
+  "lifecycle": {
+    "status": "active",
+    "deprecated_since": null,
+    "reason": null,
+    "successor": null
+  },
+  "esphome": {
+    "platform": "esp32",
+    "variant": "ESP32C3",
+    "framework": "esp-idf",
+    "min_version": "2022.6.0",
+    "board": "seeed_xiao_esp32c3"
+  },
+  "datasheet_url": "https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/",
+  "last_verified": "2026-07-05",
+  "verified_source": "Seeed wiki XIAO_ESP32C3 + arduino-esp32 variants/XIAO_ESP32C3/pins_arduino.h + platformio seeed_xiao_esp32c3.json + Espressif ESP32-C3 datasheet",
+  "recommended_for": [
+    "Tiny battery-powered sensors (44 uA deep sleep, LiPo charging onboard)",
+    "Bluetooth proxy in a small enclosure",
+    "Space-constrained builds (21 x 17.8 mm)",
+    "Beginner-friendly low-cost WiFi + BLE projects"
+  ],
+  "not_recommended_for": [
+    "Voice assistant (single core, no PSRAM)",
+    "Camera projects (no PSRAM, few pins)",
+    "Projects that need a status LED without wiring one externally",
+    "Builds where attaching the external antenna is impractical"
+  ]
+}

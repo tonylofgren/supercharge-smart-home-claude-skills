@@ -11,7 +11,7 @@ against schema-checked profiles, and refuses to ship code that does not pass.
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-7c3aed.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![Home Assistant](https://img.shields.io/badge/Home_Assistant-2024.x--2026.x-41BDF5.svg)](https://www.home-assistant.io/)
 [![ESPHome](https://img.shields.io/badge/ESPHome-2026.6.0-000000.svg)](https://esphome.io/)
-[![Version](https://img.shields.io/badge/Version-v1.15.0-success.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.16.0-success.svg)](CHANGELOG.md)
 [![Validated](https://img.shields.io/badge/Validated-against_datasheets-success.svg)](aurora/references/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Support Nabu Casa](https://img.shields.io/badge/Support_HA-Nabu_Casa-3b8cd3.svg)](https://www.nabucasa.com)
@@ -26,6 +26,12 @@ against schema-checked profiles, and refuses to ship code that does not pass.
 > See [DISCLAIMER.md](DISCLAIMER.md) for full terms.
 
 ---
+
+## What's new: XIAO boards, more air-quality sensors, current platform data (v1.16.0, July 2026)
+
+- **Seeed XIAO family in the catalog:** board profiles for the XIAO ESP32-C3, ESP32-C6, and ESP32-S3 with verified pin maps, strapping pins, LiPo charging data, and the C6 antenna-switch GPIOs, so tiny battery builds get real pin validation.
+- **Air quality beyond CO2:** PMS5003 particulate (PM1.0/PM2.5/PM10) and SGP40 VOC index sensor profiles join the catalog (now 16 parts), both with live-verified JLCPCB part numbers.
+- **Aurora routes on current releases:** platform data now covers HA 2026.6/2026.7 and ESPHome 2026.5/2026.6, including the HA 2026.6 removal of legacy `platform: template` sensors, plus sharper routing keywords (mmWave/radar/presence, DLMS smart meters, SkyConnect).
 
 ## What's new: ESPHome 2026.6.0 support (v1.15.0, June 2026)
 

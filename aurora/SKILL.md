@@ -33,7 +33,7 @@ Look at the **user messages** in conversation history (not the skill file conten
 - Do not run any `gh` calls.
 - Respond with a single short line, e.g.:
 
-  > *Aurora v1.15.0 is already loaded.*
+  > *Aurora v1.16.0 is already loaded.*
 
 - Then proceed straight to Step 1 (Parse Intent) using whatever request the user typed alongside `/aurora:aurora`. If the user typed nothing alongside it, ask the opening question once:
 
@@ -55,7 +55,7 @@ Command:
 gh release view --json tagName -R tonylofgren/aurora-smart-home --jq '.tagName'
 ```
 
-- If gh returns a valid version tag (like `v1.7.12`), strip the leading `v` and compare to the installed version `1.15.0`. If the fetched version is semver-greater, output the update notice (see below) BEFORE the banner.
+- If gh returns a valid version tag (like `v1.7.12`), strip the leading `v` and compare to the installed version `1.16.0`. If the fetched version is semver-greater, output the update notice (see below) BEFORE the banner.
 - If gh is missing, fails, returns nothing, or returns something that does not parse as a semver tag, proceed directly to the banner with no output. Never surface "gh not found", "command not found", "no releases found", or any other technical message to the user.
 
 **Semver comparison rule (avoid lexicographic mistakes):** Both versions must be matched against `^\d+\.\d+\.\d+$`, then split on `.` and each segment compared as **integer**, not as string. Lexicographic comparison reports `2.0.10 < 2.0.2` (because `'1' < '2'` at the start of the third segment), which is wrong. Concretely:
@@ -77,26 +77,26 @@ The fallback chain is intentionally one tier. Earlier versions tried WebFetch as
 Update notice (only when gh succeeded and a newer version exists):
 
 ```
-🔔 A newer Aurora is available: v<latest> (you have v1.15.0).
+🔔 A newer Aurora is available: v<latest> (you have v1.16.0).
    Update: claude plugin update aurora@aurora-smart-home
    Then /reload-plugins or restart Claude Code.
 ```
 
-What's new notice (only when gh succeeded AND fetched version == installed version `1.15.0`):
+What's new notice (only when gh succeeded AND fetched version == installed version `1.16.0`):
 
 ```
-✨ Aurora v1.15.0 — what's new:
-   • ESPHome 2026.6.0 support: a full release reference with an upgrade
-     checklist, breaking changes, and worked examples.
-   • New components covered: motion/IMU hub (BMI270, LSM6DS), PCM5122 audio
-     DAC, router speaker, XDB401 pressure, and USB-serial drivers.
-   • Built-in heads-up: ESP8266 now defaults to WPA2, and enable_on_boot:
-     false now frees RAM on WiFi and ethernet.
+✨ Aurora v1.16.0 — what's new:
+   • Seeed XIAO boards in the catalog: XIAO ESP32-C3, C6, and S3 profiles
+     with verified pin maps, LiPo charging data, and the C6 antenna switch.
+   • Air quality beyond CO2: PMS5003 particulate and SGP40 VOC sensor
+     profiles with live-verified JLCPCB part numbers.
+   • Current platform data: routing hints for HA 2026.6/2026.7 and ESPHome
+     2026.5/2026.6, including the HA 2026.6 legacy template sensor removal.
 ```
 
 **Update this block at every version bump.** Content must be user-facing (no schema fields, test counts, or CI changes). 3 bullets max.
 
-Then output `v1.15.0 (released 2026-06-19)` on its own line, then output the banner:
+Then output `v1.16.0 (released 2026-07-05)` on its own line, then output the banner:
 
 ```
   ┌─────────────────────────────────────────────────────────┐
@@ -116,7 +116,7 @@ Then output `v1.15.0 (released 2026-06-19)` on its own line, then output the ban
 
 If the Version Check above succeeded, skip this section. This is only the fallback for when gh CLI was unavailable.
 
-The release date of this version is `2026-05-23`.
+The release date of this version is `2026-07-05`.
 
 After the banner, compare today's date (available in your conversation context) to that release date. If more than 90 days have passed AND the version check above did not already produce an update notice, output this line BEFORE asking the project question:
 

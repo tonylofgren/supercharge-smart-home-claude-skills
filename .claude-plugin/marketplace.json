@@ -1,6 +1,6 @@
 {
   "name": "aurora-smart-home",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "Aurora Smart Home - Claude Skills for Home Assistant, ESPHome, Node-RED, and IoT product development",
   "owner": {
     "name": "Tony Löfgren"
@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "aurora",
-      "description": "Aurora Smart Home — skills for Home Assistant, ESPHome, Node-RED, custom integrations, API catalog, and dashboard design",
+      "description": "Aurora Smart Home - skills for Home Assistant, ESPHome, Node-RED, custom integrations, API catalog, and dashboard design",
       "source": "./",
       "skills": [
         "./home-assistant",

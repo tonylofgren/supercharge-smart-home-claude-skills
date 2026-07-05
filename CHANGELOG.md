@@ -8,6 +8,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.16.0] - 2026-07-05
+
+### Added
+
+- **Seeed XIAO board profiles**: `xiao-esp32-c3`, `xiao-esp32-c6`, and `xiao-esp32-s3` join the machine-readable board catalog (recipes, evals, and examples already referenced the family but the pin validator had nothing to check against). Pin maps, strapping pins, the C6 antenna-switch GPIOs (GPIO3/GPIO14), charge currents, and deep-sleep figures verified against the Seeed wiki, arduino-esp32 variant headers, PlatformIO board definitions, and Espressif datasheets. Unverifiable values (charging IC part numbers) stay null instead of guessed. 24 data-integrity tests.
+- **PMS5003 and SGP40 component profiles**: the air-quality catalog now covers particulate matter (PM1.0/PM2.5/PM10, UART) and VOC index (I2C 0x59) in addition to CO2, bringing the component catalog to 16 parts. Electrical limits, calibration behavior, and variant confusion risks (PMS5003T/S, SGP41, SGP30) verified against Plantower/Sensirion datasheets and the ESPHome pmsx003/sgp4x docs. LCSC numbers verified live against the JLCPCB parts API (PMS5003 C91431, SGP40-D-R4 C2874215). 13 data-integrity tests.
+- **Current platform data**: `aurora/references/platform-versions.md` gains HA 2026.6, HA 2026.7, ESPHome 2026.5, and ESPHome 2026.6 sections with routing hints; it previously called ESPHome 2026.4.5 current while the repo shipped the 2026.6 release reference. A new guard test (`test_platform_versions_guard.py`) fails whenever the doc lags the newest `esphome/references/release-*.md`.
+- **HA 2026.6/2026.7 in the HA skill**: what's-new sections added; the legacy `platform: template` warnings now state that the removal shipped in HA 2026.6 (verified against the official release notes) instead of framing it as a future deadline.
+- **node-red Delivery Contract**: the skill now carries the same written-to-disk delivery block as the other build skills, pointing at River's Iron Law 3; its checklist is renamed Pre-Completion for consistency.
+
+### Changed
+
+- **Orchestrator routing accuracy**: Volt gains mmWave/radar/LD2410/presence and DLMS/smart-meter trigger keywords; Nano gains SkyConnect/Connect ZBT-1/ZHA; the stray "sky connect" keyword is removed from Iris (it routed Zigbee-stick questions to dashboard design). The model tier audit is refreshed (sonnet now maps to Claude Sonnet 5), and the Step 5 routing output template gains the Language line the Language Rule already promised so specialists receive the detected language explicitly.
+
+### Fixed
+
+- **CHANGELOG 1.11.0 restored**: the v1.11.0 entry had been merged into 1.12.0 by mistake; it is split back out under its own 2026-06-12 header, matching the git tag history.
+- **ROADMAP.md updated**: phases 2-8 are marked complete (all shipped by v1.6.x); the stale "contribution process is informal until Phase 8" note now points at CONTRIBUTING.md.
+- **Freshness-check date** in `aurora/SKILL.md` had drifted (2026-05-23 while the banner said 2026-06-19); both now track the release date.
+
 ## [1.15.0] - 2026-06-19
 
 ### Added

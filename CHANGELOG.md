@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Trigger/condition snapshots reconciled against HA 2026.7.1.** The official-docs snapshots were captured 2026-05-30 during the Labs preview; HA 2026.7 renamed several purpose-specific keys when the blocks became the default, so the snapshots listed six keys that no longer work (`lawn_mower.docked`, `timer.time_remaining`, `update.update_became_available`, `vacuum.docked`, `climate.target_humidity`, `climate.target_temperature`). All corrected to the shipped names. Both snapshots gain a Purpose-Specific Blocks section documenting the stable `domain.name` + `target:`/`options:`/`behavior:`/`for:` envelope (zone blocks as worked examples) plus the new assist_satellite, zone, battery, and cover families in the indexes.
+
 ## [1.16.0] - 2026-07-05
 
 ### Added

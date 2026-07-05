@@ -312,7 +312,7 @@ When a request involves more than YAML configuration, hand it off to the right s
 
 ### What's new in HA 2026.7 (released 2026-07-01)
 
-- **Purpose-specific triggers and conditions are the new default** (graduated from Labs) - automations describe intent ("when temperature drops below 18") instead of raw entity/state plumbing, and integrations can register their own trigger/condition types. Classic YAML triggers, conditions, and templates keep working unchanged; no migration required.
+- **Purpose-specific triggers and conditions are the new default** (graduated from Labs) - automations describe intent ("when temperature drops below 18") instead of raw entity/state plumbing, and integrations can register their own trigger/condition types. Classic YAML triggers, conditions, and templates keep working unchanged; no migration required. The new block syntax (`trigger: zone.entered` with `target:`/`options:`/`behavior:`) is documented in `references/triggers-2026-official.md` and `references/conditions-2026-official.md`; note that several Labs-era keys were renamed in 2026.7 and the old keys no longer work.
 - **Activity timeline** - the logbook is rebuilt as a day-grouped timeline with colored state dots.
 - **Update all** - the Updates page groups updates into cards (core/OS manual; ESPHome devices and HACS bundled) with one-tap bulk update per card.
 - **Dedicated Infrared and Radio Frequency settings panels** when such devices exist.

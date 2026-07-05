@@ -2,6 +2,8 @@
 
 ## Home Assistant 2026.7 (released 2026-07-01, current patch 2026.7.1 from 2026-07-03)
 
+> Full "what this release means" reference: `home-assistant/references/release-2026-7.md` (also covers the 2026.6 `platform: template` removal).
+
 - **Purpose-specific triggers and conditions become the default** (graduated from Labs): automations describe intent instead of raw entity/state plumbing; integrations can register their own trigger/condition types. Classic YAML triggers, conditions, and templates keep working; no migration needed. Route to **Sage**.
 - **Activity timeline**: logbook rebuilt as a day-grouped timeline. No YAML impact.
 - **Update all**: Updates page grouped into per-source cards with one-tap bulk update (ESPHome devices and HACS bundled; core/OS stay manual). Route to **Forge**.

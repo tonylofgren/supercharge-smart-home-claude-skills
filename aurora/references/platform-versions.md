@@ -44,6 +44,19 @@
 - **New integrations** — UniFi Access, WiiM, Solarman, TRMNL (e-paper display). → Route to **Grid** (UniFi), **Ada** (others)
 - **Backup upload progress** — Per-location upload percentage visible. → Route to **Forge**
 
+## ESPHome 2026.7 (released July 2026)
+
+Full reference: `esphome/references/release-2026-7.md`.
+
+- **Native ESP-IDF/nRF Connect SDK are the default toolchains** (build backend, not framework version). `toolchain: platformio` is the opt-out. Route to **Volt**.
+- **EN18031 security stack**: `esp32: nvs_encryption:` (permanent eFuse burn), `enable_ota_downgrade_protection:`, and the new transport-agnostic `provisioning:` window. Route to **Volt** plus **Vera**.
+- **Modbus rewrite**: buffer-based parser, client/server hub split (C++ API), server `allow_partial_read`, client timing defaults raised (`send_wait_time` 2000ms, `turnaround_time` 600ms). Route to **Volt**.
+- **LVGL expansion**: animations, runtime `lvgl.display.set_rotation` with `on_landscape`/`on_portrait`, `paused:` boot suppression, activity-while-e-paper-refreshing. Route to **Volt**.
+- **11 new components**: qmi8658 IMU (`motion`), Divoom Pixoo 64, IT8951 e-paper, touch controllers (cst328/st7123/gsl3670/cst9220), ufm01 flow meter, waveshare_io_ch32v003. Route to **Volt**.
+- **`image:` becomes a platform** (`platform: file`/`animation`/`online_image`; legacy keys work through 2027.1.0). Route to **Volt**.
+- **Zigbee SDK 2.0.2 + endpoint merging** (re-join required); gigabit Ethernet on ESP32-S31 needs ESP-IDF 6.1 (dev). Route to **Nano** plus **Volt**.
+- **Breaking**: legacy dashboard removed (use Device Builder), Python 3.11 dropped, web_server object-ID URLs and single `!include` packages removed, hub75 `scan_wiring` renames. Route breakage to **Glitch**.
+
 ## ESPHome 2026.6 (released June 2026)
 
 Full reference: `esphome/references/release-2026-6.md`.

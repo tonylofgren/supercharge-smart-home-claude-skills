@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.17.0] - 2026-07-16
+
+### Added
+
+- **ESPHome 2026.7.0 release reference** (`esphome/references/release-2026-7.md`), mirroring the 2026.6.0 reference: an at-a-glance summary, a full upgrade checklist, sections with verified YAML for the native-toolchain default flip, the EN18031 security stack (NVS encryption, OTA downgrade protection, `provisioning`), the Modbus rewrite, the LVGL animation/rotation/pausing expansion, 11 new hardware components, and the `image:` platform restructure. Includes a compact breaking-change table, a developer-facing breaking-change section, a "what did not change" block, and ten worked recipes. Every YAML schema verified against the upstream component docs via `gh api`; the gigabit-Ethernet ESP32-S31 example is explicitly dev-gated because it requires ESP-IDF 6.1 (not the recommended default). Wired into the `esphome/SKILL.md` Release Notes table.
+- **ESPHome 2026.7 routing hints**: `aurora/references/platform-versions.md` gains an ESPHome 2026.7 section so the orchestrator routes on current version data (satisfies the `test_platform_versions_guard.py` guard test).
+
 ### Fixed
 
 - **HA 2026.7 purpose-specific block guidance corrected.** HA 2026.7 made the purpose-specific trigger/condition blocks the default and renamed several Labs-era keys (the old keys no longer work, e.g. `vacuum.docked` is now `vacuum.returned_to_dock` and `timer.time_remaining` is `timer.remaining_time_reached`). The HA skill's 2026.7 notes now document the stable block envelope (`domain.name` plus `target:`/`options:`/`behavior:`/`for:`) and warn about the renames, verified against the official release notes and docs pages.

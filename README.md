@@ -43,7 +43,11 @@ instead of code that fails silently.
 /aurora:aurora
 ```
 
-Then just describe it:
+Then just describe it. One request is enough for a complete build: Aurora
+delivers the ESPHome firmware, the Home Assistant automation, and the
+dashboard as one coherent project, wired together end to end so the entity
+the firmware creates is the entity the automation triggers on and the
+dashboard shows.
 
 > **You:** motion light for the hallway: sensor on ESP32, automation in
 > Home Assistant, a tile on the dashboard

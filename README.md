@@ -4,9 +4,15 @@
 
 # Aurora Smart Home
 
-A Claude Code plugin for building smart home projects with verified reference data.
-Aurora routes your request to a specialist, validates every pin, entity, and address
-against schema-checked profiles, and refuses to ship code that does not pass.
+**Describe what you want to build. Get back firmware, automations, and wiring
+diagrams that already passed validation.**
+
+Aurora is a Claude Code plugin with 21 smart home specialists backed by
+verified board and component data. Ask for a temperature sensor on ESP32 and
+you get ready-to-flash ESPHome YAML, a wiring diagram, and a BOM with real,
+in-stock part numbers. Ask for a pin that is reserved by USB and Aurora
+refuses, shows you why, and hands you the two-line fix instead of code that
+fails at boot.
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-7c3aed.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![Home Assistant](https://img.shields.io/badge/Home_Assistant-2024.x--2026.x-41BDF5.svg)](https://www.home-assistant.io/)
@@ -27,11 +33,43 @@ against schema-checked profiles, and refuses to ship code that does not pass.
 
 ---
 
+## Aurora in 10 seconds
+
+```
+/plugin marketplace add tonylofgren/aurora-smart-home
+/plugin install aurora@aurora-smart-home
+/aurora:aurora
+```
+
+Then just describe it:
+
+> **You:** temperature sensor with OLED on ESP32-S3, I2C on GPIO 19 and 20
+>
+> **Aurora:** ❌ GPIO 19/20 are reserved for USB on the ESP32-S3.
+> 🔧 Use GPIO 8 (SDA) and GPIO 9 (SCL), the board's default I2C pins.
+>
+> With valid pins: ready-to-flash ESPHome YAML, a wiring diagram,
+> calibration steps, and a project README you can hand to someone else.
+
+Plain AI codegen gives you *plausible*. Aurora gives you *checked*:
+[12 validators](#validation-and-safety) block bad pins, I2C address
+collisions, wrong voltages, missing entities, and OTA-bricking configs
+before any code reaches you.
+
+---
+
 ## What's new: ESPHome 2026.7.0 support (v1.17.0, July 2026)
 
 - **Full ESPHome 2026.7.0 release guide:** native ESP-IDF and nRF Connect SDK toolchains are now the default build backend, with an upgrade checklist, a breaking-change table, and a "what did not change" reassurance section so upgrades do not surprise you.
 - **New device support with ready-to-flash configs:** the QMI8658 IMU, Divoom Pixoo 64 LED matrix, IT8951 e-paper (M5Paper), and new touch controllers, plus a Modbus meter recipe and an animated, auto-rotating LVGL screen.
 - **Security recipes:** opt-in NVS encryption, OTA downgrade protection, and the new provisioning window for products that ship unconfigured, all wired into a single hardened-node example.
+
+Earlier releases (XIAO boards, the recipe library, verified JLCPCB part
+numbers, fab-ready hardware delivery, and more): see
+[CHANGELOG.md](CHANGELOG.md).
+
+<details>
+<summary><strong>Previous release notes</strong> (v1.9.2 - v1.16.0)</summary>
 
 ## What's new: XIAO boards, more air-quality sensors, current platform data (v1.16.0, July 2026)
 
@@ -165,6 +203,8 @@ type that finally treats RF transceivers as first-class devices in Home Assistan
   `courtesy_response:`. Worth about 60% flash savings on the way out.
 
 Full details, breaking changes, and copy-paste recipes: [`esphome/references/release-2026-5.md`](./esphome/references/release-2026-5.md).
+
+</details>
 
 ---
 
@@ -568,14 +608,6 @@ Full guide: [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 ## Changelog
 
 Version history lives in [CHANGELOG.md](./CHANGELOG.md).
-
-**What's new in v1.9.1:** Path-resolution fix. `/aurora:aurora` no longer reports "the aurora directory doesn't exist in the project" when invoked from a working directory that isn't an Aurora-structured repo. The slash command at `commands/aurora.md` now explicitly tells Claude that `aurora/SKILL.md` lives in the plugin install directory, not the user's project. A new Path Conventions section at the top of `aurora/SKILL.md` clarifies the same rule for every reference Aurora makes to its own files. Latent regression since 2026-01-03 when the aurora plugin structure was first introduced; affected 15 releases (v1.0.0 through v1.9.0). If you ever saw such an error and gave up, this is fixed.
-
-**What's new in v1.9.0:** Aurora now targets ESPHome 2026.5.0 with a complete release reference, working examples for every new feature (Sendspin multi-room audio, Zigbee on ESP32-C6/H2, `radio_frequency` entity, BLE coex fix for Yale/August locks, soft-brick OTA recovery), and the first vendored external component (`panasonic_ac` from DomiStyle, MIT-licensed, ships locally so builds work offline). The examples library expanded from 4 to 27 working projects covering battery sensors, leak detection, LED strips, smart plugs, soil moisture, voice assistant, solar inverter monitoring, EV charger control, pool chemistry, smart blinds, fingerprint unlocking, e-paper weather stations, LVGL touchscreen panels, and more. Skill orchestrator polish: cross-skill handoffs table in `home-assistant`, Process flowchart added to `node-red`, reactivation boundary documented.
-
-**What's new in v1.8.1:** Custom PCB builds are now first-class. Tell Volt "bare chip", "custom board", or "module" and it routes to a new Mode C: picks the right Espressif module (ESP32-S3-WROOM-2, C3-MINI-1, or C6-MINI-1 for Thread/Matter), explains what a bare module demands (external LDO, no onboard USB-UART), and always walks you through the prototype-first workflow before you commit to a PCB layout. Board recommendation engine fixed: commercial devices (Shelly, Sonoff) no longer appear as fresh-build suggestions. LilyGO T-Display S3 default I2C pins now warn about the silent UART0 conflict.
-
-**What's new in v1.8.0:** Hardware safety analysis — dangerous projects (battery, mains relay, outdoor, >5V) now trigger Vera's review before Volt starts and produce `hardware/HAZARD-ANALYSIS.md`. PCB files move from `esphome/` to `hardware/`. Four HA integration patterns documented in `aurora/references/ha-integration/`. Self-validating delivery via `aurora/scripts/check-delivery.py` — every specialist must pass the script before declaring done.
 
 The roadmap lives in [ROADMAP.md](./ROADMAP.md).
 

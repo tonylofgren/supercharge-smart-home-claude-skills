@@ -68,8 +68,17 @@ Then just describe it:
 >
 > If Sage's automation references an entity Volt never creates, Aurora
 > raises the conflict to you instead of shipping broken YAML. Delivery is
-> a project folder on disk with firmware, automation, dashboard config,
-> and a README, not a paste in chat.
+> a project folder on disk, not a paste in chat:
+>
+> ```
+> hallway-motion/
+> ├── README.md              ← BOM with prices, wiring table + diagram,
+> │                            install steps, troubleshooting, recovery
+> ├── hallway-motion.yaml    ← ESPHome firmware (Volt)
+> ├── automations.yaml       ← HA automation (Sage)
+> ├── dashboard.yaml         ← Lovelace view (Iris)
+> └── secrets.yaml.example   ← WiFi + API key template
+> ```
 
 No hardware involved? Aurora works the same for pure software requests:
 

@@ -4,12 +4,12 @@
 
 # Aurora Smart Home
 
-**Describe what you want to build. Get back firmware, automations,
+**Describe what you want to build. Get back automations, firmware,
 integrations, and dashboards that already passed validation.**
 
 Aurora is a Claude Code plugin with 21 smart home specialists backed by
-verified reference data. ESPHome firmware, Home Assistant automations and
-dashboards, HACS-ready Python integrations, Node-RED flows: every request is
+verified reference data. Home Assistant automations and dashboards, ESPHome
+firmware, HACS-ready Python integrations, Node-RED flows: every request is
 routed to the right specialist, and every pin, entity ID, I2C address, and
 API pattern is checked before code is generated. Ask for something that
 cannot work, a reserved GPIO or an automation triggering on an entity that
@@ -45,30 +45,33 @@ instead of code that fails silently.
 
 Then just describe it:
 
-> **You:** temperature sensor with OLED on ESP32-S3, I2C on GPIO 19 and 20
+> **You:** motion light for the hallway: sensor on ESP32, automation in
+> Home Assistant, a tile on the dashboard
 >
-> **Aurora:** routes to Volt, the firmware specialist. Volt loads the
-> ESP32-S3 board profile and runs the pin validators *before* writing YAML:
+> **Aurora:** plans three specialists working from one shared snapshot:
+>
+> ```
+> Volt (firmware)    validates board + pins before writing YAML,
+>                    creates  binary_sensor.hallway_motion
+> Sage (automation)  triggers on binary_sensor.hallway_motion,
+>                    modern triggers:/actions: syntax
+> Iris (dashboard)   places the same entity on the room view
+> ```
+>
+> Anything impossible is refused with a concrete fix instead of generated:
 >
 > ```
 > ❌ Problem:  GPIO 19/20 are reserved for USB on the ESP32-S3 DevKit.
-> 📚 Why:      The S3 routes USB D+/D- to GPIO 19/20; assigning I2C
->              there collides with the USB console.
 > 🔧 Fix:      Use GPIO 8 (SDA) and GPIO 9 (SCL), the board's default
 >              I2C pins.
 > ```
 >
-> **You:** ok, GPIO 8 and 9
->
-> **Volt:** all validators pass. You get a project folder on disk, not a
-> paste in chat:
->
-> ```
-> temp-sensor/
-> ├── README.md              ← wiring table, BOM, install steps, recovery
-> ├── temp-sensor.yaml       ← ready-to-flash ESPHome firmware
-> └── secrets.yaml.example   ← WiFi + API key template
-> ```
+> If Sage's automation references an entity Volt never creates, Aurora
+> raises the conflict to you instead of shipping broken YAML. Delivery is
+> a project folder on disk with firmware, automation, dashboard config,
+> and a README, not a paste in chat.
+
+No hardware involved? Aurora works the same for pure software requests:
 
 > **You:** lights on at sunset, off at midnight
 >

@@ -47,10 +47,28 @@ Then just describe it:
 
 > **You:** temperature sensor with OLED on ESP32-S3, I2C on GPIO 19 and 20
 >
-> **Aurora:** ❌ GPIO 19/20 are reserved for USB on the ESP32-S3.
-> 🔧 Use GPIO 8 (SDA) and GPIO 9 (SCL), the board's default I2C pins.
-> With valid pins: ready-to-flash ESPHome YAML, a wiring diagram,
-> calibration steps, and a project README you can hand to someone else.
+> **Aurora:** routes to Volt, the firmware specialist. Volt loads the
+> ESP32-S3 board profile and runs the pin validators *before* writing YAML:
+>
+> ```
+> ❌ Problem:  GPIO 19/20 are reserved for USB on the ESP32-S3 DevKit.
+> 📚 Why:      The S3 routes USB D+/D- to GPIO 19/20; assigning I2C
+>              there collides with the USB console.
+> 🔧 Fix:      Use GPIO 8 (SDA) and GPIO 9 (SCL), the board's default
+>              I2C pins.
+> ```
+>
+> **You:** ok, GPIO 8 and 9
+>
+> **Volt:** all validators pass. You get a project folder on disk, not a
+> paste in chat:
+>
+> ```
+> temp-sensor/
+> ├── README.md              ← wiring table, BOM, install steps, recovery
+> ├── temp-sensor.yaml       ← ready-to-flash ESPHome firmware
+> └── secrets.yaml.example   ← WiFi + API key template
+> ```
 
 > **You:** lights on at sunset, off at midnight
 >

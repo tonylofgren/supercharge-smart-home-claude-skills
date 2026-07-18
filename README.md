@@ -4,15 +4,17 @@
 
 # Aurora Smart Home
 
-**Describe what you want to build. Get back firmware, automations, and wiring
-diagrams that already passed validation.**
+**Describe what you want to build. Get back firmware, automations,
+integrations, and dashboards that already passed validation.**
 
 Aurora is a Claude Code plugin with 21 smart home specialists backed by
-verified board and component data. Ask for a temperature sensor on ESP32 and
-you get ready-to-flash ESPHome YAML, a wiring diagram, and a BOM with real,
-in-stock part numbers. Ask for a pin that is reserved by USB and Aurora
-refuses, shows you why, and hands you the two-line fix instead of code that
-fails at boot.
+verified reference data. ESPHome firmware, Home Assistant automations and
+dashboards, HACS-ready Python integrations, Node-RED flows: every request is
+routed to the right specialist, and every pin, entity ID, I2C address, and
+API pattern is checked before code is generated. Ask for something that
+cannot work, a reserved GPIO or an automation triggering on an entity that
+does not exist, and Aurora refuses, shows you why, and hands you the fix
+instead of code that fails silently.
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-7c3aed.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![Home Assistant](https://img.shields.io/badge/Home_Assistant-2024.x--2026.x-41BDF5.svg)](https://www.home-assistant.io/)
@@ -47,14 +49,25 @@ Then just describe it:
 >
 > **Aurora:** ❌ GPIO 19/20 are reserved for USB on the ESP32-S3.
 > 🔧 Use GPIO 8 (SDA) and GPIO 9 (SCL), the board's default I2C pins.
->
 > With valid pins: ready-to-flash ESPHome YAML, a wiring diagram,
 > calibration steps, and a project README you can hand to someone else.
 
+> **You:** lights on at sunset, off at midnight
+>
+> **Aurora:** a Home Assistant automation in modern `triggers:` /
+> `actions:` syntax, where every entity it references is verified to exist.
+
+> **You:** Python integration for the Acme cloud API, HACS ready
+>
+> **Aurora:** the full `custom_components/` structure with config flow,
+> coordinator, and the async pitfalls (`datetime.now()`, blocking I/O)
+> already caught.
+
 Plain AI codegen gives you *plausible*. Aurora gives you *checked*:
 [12 validators](#validation-and-safety) block bad pins, I2C address
-collisions, wrong voltages, missing entities, and OTA-bricking configs
-before any code reaches you.
+collisions, wrong voltages, missing entities, async bugs, and OTA-bricking
+configs before any code reaches you, whether the output is ESPHome YAML, a
+Home Assistant automation, Python, or a Node-RED flow.
 
 ---
 

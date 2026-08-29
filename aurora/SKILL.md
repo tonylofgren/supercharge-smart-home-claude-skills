@@ -33,7 +33,7 @@ Look at the **user messages** in conversation history (not the skill file conten
 - Do not run any `gh` calls.
 - Respond with a single short line, e.g.:
 
-  > *Aurora v1.18.0 is already loaded.*
+  > *Aurora v1.19.0 is already loaded.*
 
 - Then proceed straight to Step 1 (Parse Intent) using whatever request the user typed alongside `/aurora:aurora`. If the user typed nothing alongside it, ask the opening question once:
 
@@ -55,7 +55,7 @@ Command:
 gh release view --json tagName -R tonylofgren/aurora-smart-home --jq '.tagName'
 ```
 
-- If gh returns a valid version tag (like `v1.7.12`), strip the leading `v` and compare to the installed version `1.18.0`. If the fetched version is semver-greater, output the update notice (see below) BEFORE the banner.
+- If gh returns a valid version tag (like `v1.7.12`), strip the leading `v` and compare to the installed version `1.19.0`. If the fetched version is semver-greater, output the update notice (see below) BEFORE the banner.
 - If gh is missing, fails, returns nothing, or returns something that does not parse as a semver tag, proceed directly to the banner with no output. Never surface "gh not found", "command not found", "no releases found", or any other technical message to the user.
 
 **Semver comparison rule (avoid lexicographic mistakes):** Both versions must be matched against `^\d+\.\d+\.\d+$`, then split on `.` and each segment compared as **integer**, not as string. Lexicographic comparison reports `2.0.10 < 2.0.2` (because `'1' < '2'` at the start of the third segment), which is wrong. Concretely:
@@ -77,26 +77,26 @@ The fallback chain is intentionally one tier. Earlier versions tried WebFetch as
 Update notice (only when gh succeeded and a newer version exists):
 
 ```
-🔔 A newer Aurora is available: v<latest> (you have v1.18.0).
+🔔 A newer Aurora is available: v<latest> (you have v1.19.0).
    Update: claude plugin update aurora@aurora-smart-home
    Then /reload-plugins or restart Claude Code.
 ```
 
-What's new notice (only when gh succeeded AND fetched version == installed version `1.18.0`):
+What's new notice (only when gh succeeded AND fetched version == installed version `1.19.0`):
 
 ```
-✨ Aurora v1.18.0, what's new:
-   • ESPHome 2026.8.0 release guide: Bluetooth Low Energy now works across
-     more chip families, plus a breaking-change migration checklist.
-   • New device support: 60 GHz presence radar, Hörmann garage doors, and
-     ad-hoc Modbus actions from YAML, with ready-to-flash example configs.
-   • Networking upgrades: dual Ethernet+WiFi with automatic failover, and
-     multi-key OTA signature verification for signing-key rotation.
+✨ Aurora v1.19.0, what's new:
+   • OpenAI Codex CLI support: two-command install via the codex plugin
+     marketplace, with AGENTS.md routing (works from a plain clone too).
+   • Model guidance refreshed to the Claude 5 family: Opus 5 for complex
+     design work, Sonnet 5 as the workhorse for everyday builds.
+   • Build Principles baked into every specialist: simplest working config
+     first, reuse before adding, and a validation step with every delivery.
 ```
 
 **Update this block at every version bump.** Content must be user-facing (no schema fields, test counts, or CI changes). 3 bullets max.
 
-Then output `v1.18.0 (released 2026-08-29)` on its own line, then output the banner:
+Then output `v1.19.0 (released 2026-08-29)` on its own line, then output the banner:
 
 ```
   ┌─────────────────────────────────────────────────────────┐
@@ -116,7 +116,7 @@ Then output `v1.18.0 (released 2026-08-29)` on its own line, then output the ban
 
 If the Version Check above succeeded, skip this section. This is only the fallback for when gh CLI was unavailable.
 
-The release date of this version is `2026-07-16`.
+The release date of this version is `2026-08-29`.
 
 After the banner, compare today's date (available in your conversation context) to that release date. If more than 90 days have passed AND the version check above did not already produce an update notice, output this line BEFORE asking the project question:
 

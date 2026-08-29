@@ -19,7 +19,7 @@ instead of code that fails silently.
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-7c3aed.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![Home Assistant](https://img.shields.io/badge/Home_Assistant-2024.x--2026.x-41BDF5.svg)](https://www.home-assistant.io/)
 [![ESPHome](https://img.shields.io/badge/ESPHome-2026.8.0-000000.svg)](https://esphome.io/)
-[![Version](https://img.shields.io/badge/Version-v1.18.0-success.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.19.0-success.svg)](CHANGELOG.md)
 [![Validated](https://img.shields.io/badge/Validated-against_datasheets-success.svg)](aurora/references/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Support Nabu Casa](https://img.shields.io/badge/Support_HA-Nabu_Casa-3b8cd3.svg)](https://www.nabucasa.com)
@@ -105,18 +105,24 @@ Home Assistant automation, Python, or a Node-RED flow.
 
 ---
 
+## What's new: OpenAI Codex support (v1.19.0, August 2026)
+
+- **OpenAI Codex CLI support:** a two-command install via the codex plugin marketplace, with AGENTS.md routing so Codex users get the same specialist routing as Claude Code. Also works from a plain repository clone, no plugin install required.
+- **Model guidance refreshed to the Claude 5 family:** Opus 5 recommended for complex design work (PCB layout, integration architecture), Sonnet 5 as the workhorse for everyday builds and automations.
+- **Build Principles baked into every specialist:** simplest working config first, reuse existing patterns before adding new dependencies, and a validation step built into every delivery.
+
+Earlier releases (ESPHome 2026.8.0, ESPHome 2026.7.0, XIAO boards, the recipe
+library, verified JLCPCB part numbers, fab-ready hardware delivery, and
+more): see [CHANGELOG.md](CHANGELOG.md).
+
+<details>
+<summary><strong>Previous release notes</strong> (v1.9.2 - v1.18.0)</summary>
+
 ## What's new: ESPHome 2026.8.0 support (v1.18.0, August 2026)
 
 - **Full ESPHome 2026.8.0 release guide:** Bluetooth Low Energy now works across more chip families (Raspberry Pi Pico W, Beken BK72xx, LibreTiny LN882H), with a breaking-change migration checklist for the `ble_hub_id` rename, `voc_index`/`nox_index` sensor keys, and the new LED strip `channel_colors` key.
 - **New device support with ready-to-flash configs:** 60 GHz presence radar (LD6002B), Hörmann garage door control, DS248x 1-Wire bridges, and ad-hoc Modbus read/write actions straight from YAML.
 - **Networking and reliability:** dual Ethernet+WiFi with automatic failover on ESP32, and multi-key OTA signature verification for signing-key rotation.
-
-Earlier releases (ESPHome 2026.7.0, XIAO boards, the recipe library, verified
-JLCPCB part numbers, fab-ready hardware delivery, and more): see
-[CHANGELOG.md](CHANGELOG.md).
-
-<details>
-<summary><strong>Previous release notes</strong> (v1.9.2 - v1.17.0)</summary>
 
 ## What's new: ESPHome 2026.7.0 support (v1.17.0, July 2026)
 

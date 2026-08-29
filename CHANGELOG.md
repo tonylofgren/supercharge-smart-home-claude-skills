@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.19.0] - 2026-08-29
+
 ### Changed
 
 - **aurora/SKILL.md trimmed via progressive disclosure**: the Help Menu and the Project Structure Rule's full canonical directory tree moved to `aurora/references/help-menu.md` and `aurora/references/project-layout.md` respectively, and the DEEP Mode Hand-Off step (Step 7) prose was condensed with pointers to the existing `aurora/references/handoff/_protocol.md`. SKILL.md drops from roughly 49.4 KB to roughly 45.6 KB with no loss of capability; the version-check/reactivation machinery near the top of the file was left untouched.

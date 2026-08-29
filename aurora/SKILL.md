@@ -85,7 +85,7 @@ Update notice (only when gh succeeded and a newer version exists):
 What's new notice (only when gh succeeded AND fetched version == installed version `1.18.0`):
 
 ```
-✨ Aurora v1.18.0 — what's new:
+✨ Aurora v1.18.0, what's new:
    • ESPHome 2026.8.0 release guide: Bluetooth Low Energy now works across
      more chip families, plus a breaking-change migration checklist.
    • New device support: 60 GHz presence radar, Hörmann garage doors, and

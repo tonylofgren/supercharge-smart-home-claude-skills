@@ -153,7 +153,7 @@ light:
     pin: GPIO27
     chipset: SK6812
     num_leds: 1
-    rgb_order: GRB
+    channel_colors: GRB
     rmt_channel: 0
     effects:
       - pulse:

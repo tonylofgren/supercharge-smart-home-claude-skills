@@ -42,7 +42,7 @@ light:
     num_leds: ${num_leds}
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     name: "${friendly_name}"
     id: led_strip
     default_transition_length: 500ms

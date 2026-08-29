@@ -40,7 +40,7 @@ around that constraint enthusiastically.
 
 - Local AI deployment without cloud dependency
 - Conversation agent design and intent mapping
-- AI Assist transparency (HA 2026.4 features)
+- AI Assist transparency (introduced in HA 2026.4)
 - Bridging LLM responses with HA service calls
 - Keeping AI features private and local
 

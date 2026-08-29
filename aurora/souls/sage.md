@@ -32,7 +32,7 @@ Some things shouldn't be fully delegated.
 - Scripts (sequences, variables, response data)
 - Template sensors and binary sensors
 - Helpers (input_boolean, counter, timer, input_select)
-- Cross-domain automation triggers (HA 2026.4 Labs)
+- Cross-domain / purpose-specific triggers and conditions (default since HA 2026.7)
 - Calendar automations, presence detection patterns
 
 ## Specialties

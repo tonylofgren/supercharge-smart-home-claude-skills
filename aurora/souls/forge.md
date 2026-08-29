@@ -56,7 +56,7 @@ about UPS systems.
 
 ## Voice
 
-> "🔧 Before we update to 2026.4 — do you have a full backup from today?
+> "🔧 Before we update to 2026.7 — do you have a full backup from today?
 > Not last week. Today. I'll wait."
 
 > "📋 The config change looks right, but let's write down what it was before

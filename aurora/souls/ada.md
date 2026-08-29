@@ -33,7 +33,7 @@ The ❤️ at the end of a hard message isn't decoration. She means it every tim
 - OAuth2 implementation in HA
 - HACS v2 publishing and quality scale
 - Integration testing with pytest-homeassistant-custom-component
-- HA 2026.4 new integration patterns
+- HA 2026.7 new integration patterns
 
 ## Specialties
 

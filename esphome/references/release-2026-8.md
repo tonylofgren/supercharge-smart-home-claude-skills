@@ -1,6 +1,6 @@
 # ESPHome 2026.8.0 - Complete Release Reference (August 2026)
 
-**Release date:** August 19, 2026 (2026.8.0), with a patch release 2026.8.1 on August 24, 2026
+**Release date:** August 19, 2026 (2026.8.0), with a patch release 2026.8.1 on August 24, 2026  
 **Source:** https://esphome.io/changelog/2026.8.0/
 
 When the user is on this version, upgrading TO it, or asking "what's new", read this file BEFORE generating YAML. Bluetooth Low Energy stops being ESP32-only, several BLE and sensor keys are renamed, addressable LED strips move to a single `channel_colors` key, and Modbus gets another round of changes on top of the 2026.7.0 rewrite.
@@ -145,7 +145,7 @@ light:
     name: "SK6812 RGBW Strip"
 ```
 
-Aurora's LED strip examples across `esphome/references/lights.md`, `popular-devices.md`, `voice-local.md`, `USAGE-GUIDE.md`, and `CHEATSHEET.md` were migrated to `channel_colors` as part of this release note; see the "Files touched" section at the end for the full list.
+Aurora's LED strip examples across `esphome/references/lights.md`, `popular-devices.md`, `voice-local.md`, `USAGE-GUIDE.md`, and `CHEATSHEET.md` were migrated to `channel_colors` as part of this release note.
 
 ---
 
@@ -159,7 +159,7 @@ esphome:
   friendly_name: Dual Net Node
 
 esp32:
-  board: esp32-s3-devkitc-1
+  board: esp32dev
   framework:
     type: esp-idf
 
@@ -167,6 +167,10 @@ ethernet:
   type: LAN8720
   mdc_pin: GPIO23
   mdio_pin: GPIO18
+  clk:
+    pin: GPIO17
+    mode: CLK_OUT
+  phy_addr: 0
 
 wifi:
   ssid: !secret wifi_ssid
@@ -190,6 +194,8 @@ logger:
 
 This is a good fit for a hub device (a garage controller, a hallway panel) wired to Ethernet but kept on WiFi as a backup path if the cable gets unplugged during a remodel.
 
+> The LAN8720 is an RMII PHY, which needs the classic ESP32's built-in EMAC; ESP32-S2/S3/C3/C6 have no RMII EMAC and cannot drive it. Use a classic ESP32 board with LAN8720 (as above, with the required `clk` block), or pick an SPI Ethernet chip such as W5500 or CH390 for an S3 board instead.
+
 ---
 
 ## Modbus: Fairness, Offline Tracking, and Server-Mode Growth
@@ -209,23 +215,17 @@ modbus:
   id: modbus_hub
   uart_id: uart_bus
 
-modbus_client:
-  id: meter_client
-  modbus_id: modbus_hub
-  address: 0x01
-
 button:
   - platform: template
     name: "Reset Meter Totalizer"
     on_press:
-      - modbus_client.write:
-          modbus_client_id: meter_client
-          register_type: holding
-          address: 0x0010
+      - modbus_client.write_single_register:
+          address: 0x01
+          start_address: 0x0010
           value: 0
 ```
 
-> Confirm the exact action names and value types against the `modbus_client` component docs before shipping; this is a new component and its YAML surface may still be settling.
+> The typed read/write actions (`modbus_client.write_single_register`, `.read_holding_registers`, and friends) load automatically alongside the `modbus:` hub; no separate `modbus_client:` configuration block is needed to use them. `address` is the Modbus device address (`0x01` above), and `start_address` is the register offset; `modbus_id` is only needed when more than one `modbus:` hub is configured.
 
 ---
 
@@ -244,9 +244,16 @@ button:
 ```yaml
 # Hörmann garage door over HCP bus
 uart:
+  id: uart_bus
   tx_pin: GPIO17
   rx_pin: GPIO16
-  baud_rate: 19200
+  baud_rate: 57600
+  parity: EVEN
+  stop_bits: 1
+
+modbus:
+  uart_id: uart_bus
+  role: server
 
 hoermann_hcp:
   id: garage_bus
@@ -262,7 +269,7 @@ light:
     name: "Garage Light"
 ```
 
-> Verify pin assignments and the exact bus wiring against the `hoermann_hcp` component docs; the HCP bus timing is device-specific.
+> The HCP bus is Modbus RTU: it needs a `modbus:` hub with `role: server` on top of the UART, and the UART must be `57600` baud with even parity and one stop bit to match the motor's bus controller. Verify pin assignments and the RS485 wiring against the `hoermann_hcp` component docs; the HCP bus timing is device-specific.
 
 ---
 
@@ -499,7 +506,7 @@ esphome:
   friendly_name: Hub Node
 
 esp32:
-  board: esp32-s3-devkitc-1
+  board: esp32dev
   framework:
     type: esp-idf
 
@@ -507,6 +514,10 @@ ethernet:
   type: LAN8720
   mdc_pin: GPIO23
   mdio_pin: GPIO18
+  clk:
+    pin: GPIO17
+    mode: CLK_OUT
+  phy_addr: 0
 
 wifi:
   ssid: !secret wifi_ssid
@@ -527,6 +538,8 @@ ota:
 
 logger:
 ```
+
+> LAN8720 is an RMII PHY and needs the classic ESP32's built-in EMAC; ESP32-S2/S3/C3/C6 boards have no RMII EMAC and cannot drive it, so this recipe targets a classic ESP32 board. For an S3-based hub, use an SPI Ethernet chip such as W5500 or CH390 instead.
 
 ### Recipe 5: DS2482 I2C-to-1-Wire bridge with two Dallas sensors
 
@@ -560,8 +573,13 @@ i2c:
   sda: GPIO21
   scl: GPIO22
 
+ds248x:
+  - id: ds2482_bridge
+    type: ds2482-100
+
 one_wire:
   - platform: ds248x
+    ds248x_id: ds2482_bridge
     id: bridge
 
 sensor:
@@ -575,7 +593,7 @@ sensor:
     name: "Sensor B"
 ```
 
-> Confirm channel-selection options against the `ds248x` component docs if wiring more than one bridge or using the DS2482-800's 8 channels.
+> `ds248x` is a two-layer setup: the top-level `ds248x:` hub (with a required `type:`, one of `ds2482-100`, `ds2482-101`, `ds2482-800`, or `ds2484`) is the I2C bridge chip itself, and the `one_wire:` platform entry is a bus on that bridge, referencing it by `ds248x_id`. For the 8-channel DS2482-800, add a `channel:` (0-7) to each `one_wire:` entry to expose more than one bus. Confirm channel-selection options against the `ds248x` component docs if wiring more than one bridge.
 
 ### Recipe 6: RC522 I2C tag reader with an explicit legacy address
 

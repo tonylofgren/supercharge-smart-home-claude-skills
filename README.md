@@ -301,6 +301,12 @@ correct.
 
 ## Quick start
 
+Aurora has two tracks: the plugin experience inside Claude Code, or plain
+Markdown reference content read directly by the OpenAI Codex CLI. Pick the
+one you use.
+
+### Install for Claude Code
+
 You need Claude Code installed first. Get it at
 [claude.com/claude-code](https://claude.com/claude-code).
 
@@ -320,20 +326,21 @@ Restart Claude Code, then run:
 Aurora opens, asks what you want to build, and routes the request to the right
 specialist. That is it.
 
-### Using with OpenAI Codex
+### Install for OpenAI Codex
 
-Aurora's reference content is plain Markdown, so it also works from the
-[OpenAI Codex CLI](https://developers.openai.com/codex) — no install step.
-Codex reads this repo's [`AGENTS.md`](AGENTS.md) automatically and routes
-you to the right `SKILL.md` for the domain (ESPHome, Home Assistant YAML,
-Node-RED, and so on). Just run Codex from inside a checkout of this repo:
+You need the [OpenAI Codex CLI](https://developers.openai.com/codex)
+installed first. No plugin install step is needed after that: Aurora's
+reference content is plain Markdown, and Codex reads this repo's
+[`AGENTS.md`](AGENTS.md) automatically, routing you to the right `SKILL.md`
+for the domain (ESPHome, Home Assistant YAML, Node-RED, and so on). Just run
+Codex from inside a checkout of this repo:
 
 ```
 codex
 ```
 
 The Claude Code-specific plugin packaging (`/aurora:aurora`, hooks,
-`.claude-plugin/`) does not carry over — Codex uses `AGENTS.md` and the
+`.claude-plugin/`) does not carry over; Codex uses `AGENTS.md` and the
 `SKILL.md` files directly instead.
 
 ---

@@ -33,8 +33,8 @@ jobs:
             echo "No status changes this month."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Tony Lofgren"
+          git config user.email "t.lofgren@passera.nu"
           git add aurora/references/components aurora/references/expanders
           git commit -m "chore: sync JLCPCB part status from CDFER database"
           git push

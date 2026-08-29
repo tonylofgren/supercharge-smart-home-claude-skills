@@ -329,19 +329,24 @@ specialist. That is it.
 ### Install for OpenAI Codex
 
 You need the [OpenAI Codex CLI](https://developers.openai.com/codex)
-installed first. No plugin install step is needed after that: Aurora's
-reference content is plain Markdown, and Codex reads this repo's
-[`AGENTS.md`](AGENTS.md) automatically, routing you to the right `SKILL.md`
-for the domain (ESPHome, Home Assistant YAML, Node-RED, and so on). Just run
-Codex from inside a checkout of this repo:
+installed first. Codex reads the same plugin marketplace format as Claude
+Code, so the install is two commands:
 
 ```
-codex
+codex plugin marketplace add https://github.com/tonylofgren/aurora-smart-home.git
+codex plugin add aurora@aurora-smart-home
 ```
 
-The Claude Code-specific plugin packaging (`/aurora:aurora`, hooks,
-`.claude-plugin/`) does not carry over; Codex uses `AGENTS.md` and the
-`SKILL.md` files directly instead.
+Then start `codex` anywhere and ask your smart home question. Aurora's
+skills are picked up automatically; no command or activation phrase is
+needed. To update later, run `codex plugin marketplace upgrade`.
+
+Alternatively, skip the install and just run `codex` from inside a clone of
+this repo: [`AGENTS.md`](AGENTS.md) routes Codex to the right `SKILL.md`
+per domain on its own.
+
+The Claude Code slash command (`/aurora:aurora`) and hooks do not carry
+over; in Codex the skills activate from your plain question instead.
 
 ---
 

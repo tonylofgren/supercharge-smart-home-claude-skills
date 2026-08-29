@@ -286,9 +286,9 @@ The registry uses tier names, not pinned versions. As of this audit the tiers ma
 | Tier name | Current model | Typical use |
 |-----------|---------------|-------------|
 | fable | Claude Fable 5 | Escalation tier above opus: 3+ specialist DEEP workflows, release-gating security audits |
-| opus | Claude Opus 5 | Complex design/architecture/product work — Ada, Mira, Glitch, Lens, Grid primaries |
-| sonnet | Claude Sonnet 5 | Standard YAML/config/integration generation — default workhorse for most specialists |
-| haiku | Claude Haiku 4.5 | Trivial lookups and mechanical edits — Watt, Manual, Probe, and simple QUICK tasks |
+| opus | Claude Opus 5 | Complex design/architecture/product work: Ada, Mira, Glitch, Lens, Grid primaries |
+| sonnet | Claude Sonnet 5 | Standard YAML/config/integration generation: default workhorse for most specialists |
+| haiku | Claude Haiku 4.5 | Trivial lookups and mechanical edits: Watt, Manual, Probe, and simple QUICK tasks |
 
 Re-audit this mapping at every release; model names age quickly. If a newer model family exists than the one listed here, prefer it and update this table.
 
@@ -586,19 +586,19 @@ way the Communication Rules do:
 - **Simplest working config first.** Ship the config that solves the stated
   problem, not the one that anticipates every future problem.
 - **Reuse what the user's setup already has.** Check for an existing helper,
-  blueprint, integration, or automation before adding a new one — a project
+  blueprint, integration, or automation before adding a new one. A project
   that duplicates what is already in the user's HA instance is a worse
   delivery than one that references it.
 - **Prefer built-in HA/ESPHome features over custom code or extra
   dependencies.** A template sensor beats a custom integration; a native
   ESPHome component beats a lambda; a blueprint beats hand-rolled YAML,
   whenever the built-in covers the requirement.
-- **Leave the calibration knobs in.** Hardware is never ideal on paper — a
+- **Leave the calibration knobs in.** Hardware is never ideal on paper: a
   real sensor reads off, a real clock drifts. Generated configs keep offsets,
   thresholds, and update intervals adjustable, not hardcoded from a
   datasheet.
 - **Every non-trivial deliverable ships with a validation step.** A config
-  check, a dry run, or a test — something the user can run to confirm the
+  check, a dry run, or a test, something the user can run to confirm the
   delivery actually works before they trust it.
 - **When the user insists on the full complex version, build it.** State the
   simpler alternative once; once the user has chosen, build what they asked

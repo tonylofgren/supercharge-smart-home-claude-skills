@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **aurora/SKILL.md trimmed via progressive disclosure**: the Help Menu and the Project Structure Rule's full canonical directory tree moved to `aurora/references/help-menu.md` and `aurora/references/project-layout.md` respectively, and the DEEP Mode Hand-Off step (Step 7) prose was condensed with pointers to the existing `aurora/references/handoff/_protocol.md`. SKILL.md drops from roughly 49.4 KB to roughly 45.6 KB with no loss of capability; the version-check/reactivation machinery near the top of the file was left untouched.
+- **Model recommendations refreshed to the Claude 5 family**: the Model Names table now maps the `opus` tier to Claude Opus 5 (was Claude Opus 4.8) for complex design/architecture/product work, keeps `sonnet` as Claude Sonnet 5 for standard YAML/config/integration generation, and keeps `haiku` as Claude Haiku 4.5 for trivial lookups and mechanical edits.
+
+### Added
+
+- **Build Principles section** in `aurora/SKILL.md`, alongside the Communication Rules: simplest working config first, reuse what the user's setup already has, prefer built-in HA/ESPHome features over custom code, leave calibration knobs in generated configs, ship a validation step with every non-trivial deliverable, and build the full complex version without re-arguing once the user has chosen it.
+
 ## [1.18.0] - 2026-08-29
 
 ### Added

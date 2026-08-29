@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **OpenAI Codex CLI support**: Aurora's skills now install into Codex with two commands (`codex plugin marketplace add` plus `codex plugin add aurora@aurora-smart-home`), verified end to end against a live Codex 0.148 session. A new repo-root `AGENTS.md` routes Codex to the right `SKILL.md` per domain, and the README installation section is split into parallel Claude Code and Codex tracks. Running `codex` from a plain clone of the repo works too, with no install step.
 - **Build Principles section** in `aurora/SKILL.md`, alongside the Communication Rules: simplest working config first, reuse what the user's setup already has, prefer built-in HA/ESPHome features over custom code, leave calibration knobs in generated configs, ship a validation step with every non-trivial deliverable, and build the full complex version without re-arguing once the user has chosen it.
 
 ## [1.18.0] - 2026-08-29

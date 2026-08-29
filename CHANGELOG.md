@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.18.0] - 2026-08-29
+
+### Added
+
+- **ESPHome 2026.8.0 release reference**, covering the new platform-neutral `ble_device_base` BLE layer and the BLE trackers it unlocks on non-ESP32 chips (`rp2_ble_tracker`, `bk72xx_ble_tracker`, `ln882h_ble_tracker`), the `modbus_client` component for ad-hoc Modbus transactions from YAML, the `ld6002b` 60 GHz presence radar, `hoermann_hcp` garage door control, `ds248x` 1-Wire bridges, and `zephyr_pwm` outputs. Documents the breaking changes relevant to Aurora's existing content: the `esp32_ble_id` to `ble_hub_id` rename, the `voc`/`nox` to `voc_index`/`nox_index` sensor key rename (affects the SGP40 catalog entry), the RC522 I2C default address change, and the `rgb_order`/`is_rgbw`/`is_wrgb` to `channel_colors` LED strip migration. Also covers dual Ethernet+WiFi networking with automatic failover and multi-key OTA signature verification.
+- **ESPHome 2026.8 routing hints**: `aurora/references/platform-versions.md` gains an ESPHome 2026.8 section so the orchestrator routes on current version data (satisfies the `test_platform_versions_guard.py` guard test).
+
 ## [1.17.0] - 2026-07-16
 
 ### Added

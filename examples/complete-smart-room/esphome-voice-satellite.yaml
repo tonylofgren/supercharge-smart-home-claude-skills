@@ -204,7 +204,7 @@ light:
     name: "${room_name} Voice Status"
     pin: ${led_pin}
     num_leds: 1
-    rgb_order: GRB
+    channel_colors: GRB
     chipset: WS2812
     rmt_channel: 0
     default_transition_length: 0s

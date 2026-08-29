@@ -44,6 +44,18 @@
 - **New integrations** — UniFi Access, WiiM, Solarman, TRMNL (e-paper display). → Route to **Grid** (UniFi), **Ada** (others)
 - **Backup upload progress** — Per-location upload percentage visible. → Route to **Forge**
 
+## ESPHome 2026.8 (released August 2026)
+
+Full reference: `esphome/references/release-2026-8.md`.
+
+- **BLE goes platform-neutral**: new `ble_device_base` shared advertisement layer, with `rp2_ble_tracker` (Pico W/2 W), `bk72xx_ble_tracker` (Beken, common in Tuya switches), and `ln882h_ble_tracker` joining `esp32_ble_tracker`. Route to **Volt** or **Nano**.
+- **BLE and gas-sensor key renames**: `esp32_ble_id` -> `ble_hub_id` on all BLE advertisement platforms; SGP4x/SEN5x/SEN6x `voc`/`nox` -> `voc_index`/`nox_index`. Both auto-migrate with a warning. Route to **Volt**.
+- **LED strip `channel_colors`**: `esp32_rmt_led_strip`/`beken_spi_led_strip`/`rp2040_pio_led_strip` replace `rgb_order`/`is_rgbw`/`is_wrgb` with one key. Route to **Volt**.
+- **Dual Ethernet + WiFi (ESP32)**: `network: priority:` picks the preferred interface with runtime failover/failback. Route to **Volt**.
+- **9 new components**: `ble_device_base`, 3 BLE trackers, `ld6002b` 60GHz presence radar, `hoermann_hcp` garage door cover, `ds248x` 1-Wire bridge, `zephyr_pwm` (nRF52), `modbus_client` for ad-hoc automations. Route to **Volt**.
+- **Modbus keeps evolving**: fair queue sharing, per-device offline tracking, server-mode 0x17 and coil/discrete-input support; `command_throttle`/`allow_duplicate_commands` are now no-ops. Route to **Volt**.
+- **Breaking**: RC522 I2C default address `0x2C` -> `0x28`; GPIO expander `interrupt_pin` `inverted:`/`allow_other_uses:` now validation errors; LVGL animation weights above 1.0 rejected. Route breakage to **Glitch**.
+
 ## ESPHome 2026.7 (released July 2026)
 
 Full reference: `esphome/references/release-2026-7.md`.

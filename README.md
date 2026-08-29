@@ -18,8 +18,8 @@ instead of code that fails silently.
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-7c3aed.svg)](https://docs.anthropic.com/en/docs/claude-code)
 [![Home Assistant](https://img.shields.io/badge/Home_Assistant-2024.x--2026.x-41BDF5.svg)](https://www.home-assistant.io/)
-[![ESPHome](https://img.shields.io/badge/ESPHome-2026.7.0-000000.svg)](https://esphome.io/)
-[![Version](https://img.shields.io/badge/Version-v1.17.0-success.svg)](CHANGELOG.md)
+[![ESPHome](https://img.shields.io/badge/ESPHome-2026.8.0-000000.svg)](https://esphome.io/)
+[![Version](https://img.shields.io/badge/Version-v1.18.0-success.svg)](CHANGELOG.md)
 [![Validated](https://img.shields.io/badge/Validated-against_datasheets-success.svg)](aurora/references/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Support Nabu Casa](https://img.shields.io/badge/Support_HA-Nabu_Casa-3b8cd3.svg)](https://www.nabucasa.com)
@@ -105,18 +105,24 @@ Home Assistant automation, Python, or a Node-RED flow.
 
 ---
 
+## What's new: ESPHome 2026.8.0 support (v1.18.0, August 2026)
+
+- **Full ESPHome 2026.8.0 release guide:** Bluetooth Low Energy now works across more chip families (Raspberry Pi Pico W, Beken BK72xx, LibreTiny LN882H), with a breaking-change migration checklist for the `ble_hub_id` rename, `voc_index`/`nox_index` sensor keys, and the new LED strip `channel_colors` key.
+- **New device support with ready-to-flash configs:** 60 GHz presence radar (LD6002B), Hörmann garage door control, DS248x 1-Wire bridges, and ad-hoc Modbus read/write actions straight from YAML.
+- **Networking and reliability:** dual Ethernet+WiFi with automatic failover on ESP32, and multi-key OTA signature verification for signing-key rotation.
+
+Earlier releases (ESPHome 2026.7.0, XIAO boards, the recipe library, verified
+JLCPCB part numbers, fab-ready hardware delivery, and more): see
+[CHANGELOG.md](CHANGELOG.md).
+
+<details>
+<summary><strong>Previous release notes</strong> (v1.9.2 - v1.17.0)</summary>
+
 ## What's new: ESPHome 2026.7.0 support (v1.17.0, July 2026)
 
 - **Full ESPHome 2026.7.0 release guide:** native ESP-IDF and nRF Connect SDK toolchains are now the default build backend, with an upgrade checklist, a breaking-change table, and a "what did not change" reassurance section so upgrades do not surprise you.
 - **New device support with ready-to-flash configs:** the QMI8658 IMU, Divoom Pixoo 64 LED matrix, IT8951 e-paper (M5Paper), and new touch controllers, plus a Modbus meter recipe and an animated, auto-rotating LVGL screen.
 - **Security recipes:** opt-in NVS encryption, OTA downgrade protection, and the new provisioning window for products that ship unconfigured, all wired into a single hardened-node example.
-
-Earlier releases (XIAO boards, the recipe library, verified JLCPCB part
-numbers, fab-ready hardware delivery, and more): see
-[CHANGELOG.md](CHANGELOG.md).
-
-<details>
-<summary><strong>Previous release notes</strong> (v1.9.2 - v1.16.0)</summary>
 
 ## What's new: XIAO boards, more air-quality sensors, current platform data (v1.16.0, July 2026)
 

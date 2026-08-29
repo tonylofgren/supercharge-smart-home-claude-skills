@@ -248,6 +248,8 @@ light:
 
 ## Addressable LED Strips
 
+> **2026.8.0:** `esp32_rmt_led_strip`, `beken_spi_led_strip`, and `rp2040_pio_led_strip` now take a single `channel_colors` key instead of separate `rgb_order`/`is_rgbw`/`is_wrgb` keys. `channel_colors` accepts any RGB permutation with an optional `W` anywhere (`GRB`, `GRBW`, `WRGB`, ...). The old keys still work with a deprecation warning until 2027.3.0; examples below use the new key.
+
 ### ESP32 RMT (Recommended for ESP32)
 
 ```yaml
@@ -257,7 +259,7 @@ light:
     num_leds: 60
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     name: "LED Strip"
 ```
 
@@ -281,7 +283,7 @@ light:
     num_leds: 60
     rmt_channel: 0
     chipset: WS2812B
-    rgb_order: GRB
+    channel_colors: GRB
     name: "WS2812B Strip"
 ```
 
@@ -294,8 +296,7 @@ light:
     num_leds: 60
     rmt_channel: 0
     chipset: SK6812
-    rgb_order: GRB
-    is_rgbw: true
+    channel_colors: GRBW
     name: "SK6812 RGBW Strip"
 ```
 
@@ -805,7 +806,7 @@ light:
     pin: GPIO25
     num_leds: 120
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     name: "Under Cabinet"
     id: cabinet_led
     default_transition_length: 500ms

@@ -169,7 +169,7 @@ light:
     num_leds: 1
     rmt_channel: 0
     chipset: SK6812
-    rgb_order: GRB
+    channel_colors: GRB
     effects:
       - pulse:
           name: "Listening"
@@ -311,7 +311,7 @@ light:
     num_leds: 1
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
 ```
 
 ## Available Wake Words
@@ -393,7 +393,7 @@ light:
     num_leds: 12
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     effects:
       - addressable_rainbow:
           name: "Listening"

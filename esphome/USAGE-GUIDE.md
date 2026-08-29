@@ -258,7 +258,7 @@ light:
     num_leds: 60
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     name: "LED Strip"
     effects:
       - rainbow:

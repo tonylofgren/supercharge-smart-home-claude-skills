@@ -246,7 +246,7 @@ light:
     num_leds: ${num_leds}
     rmt_channel: 0
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     name: "LED Strip"
     effects:
       - addressable_rainbow:
@@ -927,7 +927,7 @@ light:
     num_leds: 1
     rmt_channel: 0
     chipset: SK6812
-    rgb_order: GRB
+    channel_colors: GRB
     id: status_led
     name: "Status LED"
 ```

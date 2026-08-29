@@ -101,7 +101,7 @@ light:
     num_leds: 60
     name: "LED Strip"
     chipset: WS2812
-    rgb_order: GRB
+    channel_colors: GRB
     rmt_channel: 0
 ```
 
